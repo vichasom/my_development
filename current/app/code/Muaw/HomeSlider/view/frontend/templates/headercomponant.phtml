@@ -1,0 +1,37 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Chamal
+ * Date: 1/12/16
+ * Time: 7:42 PM
+ */?>
+<script>
+    require(["jquery", "bootstrapjs", "classie", "ddslick"], function ($) {
+        $(window).load(function () {
+            var menuLeft = document.getElementById('cbp-spmenu-s1'),
+                showLeft = document.getElementById('showLeft'),
+                closeLeft = document.getElementById('mobile-menu-close'),
+                body = document.body;
+
+            showLeft.onclick = function () {
+                classie.toggle(this, 'active');
+                classie.toggle(menuLeft, 'cbp-spmenu-open');
+                disableOther('showLeft');
+            };
+
+            closeLeft.onclick = function () {
+                classie.toggle(this, 'active');
+                classie.toggle(menuLeft, 'cbp-spmenu-open');
+                disableOther('showLeft');
+            };
+
+            function disableOther(button) {
+                if (button !== 'showLeft') {
+                    classie.toggle(showLeft, 'disabled');
+                }
+            }
+        });
+    });
+</script>
+
+

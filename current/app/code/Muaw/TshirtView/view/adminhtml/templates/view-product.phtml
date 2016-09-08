@@ -1,0 +1,15 @@
+<?php
+/**
+ * @var $block \Muaw\TshirtView\Block\TshirtView
+ */
+?>
+<?php
+$_product = $block->getCurrentProduct();
+$baseUrl = $block->getBaseUrl();
+?>
+<?php if($product_url = $_product->getUrlKey()):?>
+<?php $_url =  $baseUrl.$product_url.'.html';?>
+<div class="product-view-url">
+    <a href="<?php echo $_url;?>" target="_blank">View Product</a>
+</div>
+<?php endif;?>

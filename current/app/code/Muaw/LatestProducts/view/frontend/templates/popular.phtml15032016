@@ -1,0 +1,60 @@
+<?php
+$_productCollection = $block->getPopularProducts();
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+$imageBlock = $block->getLayout()->createBlock('Magento\Catalog\Block\Product\Image');
+
+$viewMode = 'grid';
+$image = 'category_page_grid';
+$showDescription = false;
+$templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+
+/**
+ * Position for actions regarding image size changing in vde if needed
+ */
+$pos = $block->getPositioned();
+$position = '';
+
+/* @var $block \Magento\Catalog\Block\Product\AbstractProduct */
+?>
+<div role="tabpanel" class="tab-pane fade active" id="popular">
+    <?php if ($_productCollection->count()): ?>
+        <?php foreach ($_productCollection as $_product): ?>
+            <?php $productImage = $block->getImage($_product, $image);?>
+            <div class="col-xs-6 col-sm-3 featured-product-box">
+                <div class="col-xs-12 featured-product-box-container">
+                    <a href="<?php /* @escapeNotVerified */ echo $_product->getProductUrl() ?>">
+                        <div class="product-sticker-image">
+                            <?php
+                            $om = \Magento\Framework\App\ObjectManager::getInstance();
+                            $storeManager = $om->get('Magento\Store\Model\StoreManagerInterface');
+                            $currentStore = $storeManager->getStore();
+                            $_sticker = $_product->getResource()->getAttributeRawValue($_product->getId(), 'admire_sticker',$currentStore);
+                            $_media_path = $currentStore->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+
+                            $artwork_top = $_product->getResource()->getAttributeRawValue($_product->getId(), 'admire_artwork_top', $currentStore);
+                            $artwork_left = $_product->getResource()->getAttributeRawValue($_product->getId(), 'admire_artwork_left', $currentStore);
+                            $artwork_right = $_product->getResource()->getAttributeRawValue($_product->getId(), 'admire_artwork_right', $currentStore);
+
+                            echo 'Top: '.$artwork_top.'<br>';
+                            echo 'Left: '.$artwork_left.'<br>';
+                            echo 'Right: '.$artwork_right.'<br>';
+
+                            if($_sticker):
+                                ?>
+                                <img src="<?php echo $_media_path.'catalog/product'.$_sticker; ?>" alt="sticker"/>
+                            <?php endif; ?>
+                        </div>
+                        <?php echo $productImage->toHtml(); ?>
+                        <div class="product-featured-price">
+                            <?php /* @escapeNotVerified */ echo $block->getProductPrice($_product); ?>
+                        </div>
+                        <div class="product-featured-hover">
+                            IF YOU <span>ADMIRE</span>, CLICK TO READ MORE
+                        </div>
+                        <div class="col-xs-12 product-featured-description"><?php echo $block->escapeHtml($_product->getName()) ?></div>
+                    </a>
+                </div>
+            </div>
+        <?php endforeach;?>
+    <?php endif;?>
+</div>

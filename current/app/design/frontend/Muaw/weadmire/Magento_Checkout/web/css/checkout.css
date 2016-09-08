@@ -1,0 +1,27 @@
+.navbar-header {
+    height: 133px;
+}
+
+#checkout .authentication-wrapper {
+    margin-top: 0;
+}
+
+#checkout .authentication-wrapper .action.action-auth-toggle {
+    margin-top: 0;
+    color: #ec128d;
+}
+
+
+
+.modal-inner-wrap .modal-content {
+    box-shadow: none;
+    border: none;
+}
+
+.modal-inner-wrap .modal-content #co-shipping-form .label {
+    font-size: 14px;
+    color: #3d3d3d;
+    padding-right: 10px;
+    padding-top: 10px;
+    border: none;
+}

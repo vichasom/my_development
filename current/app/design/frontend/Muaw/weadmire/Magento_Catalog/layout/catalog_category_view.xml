@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="columns.top">
+            <container name="category.view.container" htmlTag="div" htmlClass="row category-description" after="-">
+                <block class="Magento\Catalog\Block\Category\View" name="category.description" template="Magento_Catalog::category/description.phtml"/>
+                <block class="Magento\Catalog\Block\Category\View" name="category.cms" template="Magento_Catalog::category/cms.phtml"/>
+            </container>
+        </referenceContainer>
+
+        <!-- Category Page left sidebar -->
+        <referenceContainer name="div.sidebar.main">
+            <!-- sidebar delivery box -->
+            <container name="sidebar.delivery.box" htmlTag="div" htmlClass="col-xs-12 home-page-delivery-box">
+                <block class="Magento\Cms\Block\Block" name="sidebar.delivery">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">sidebar-delivery</argument>
+                    </arguments>
+                </block>
+            </container>
+            <!-- sidebar categories -->
+            <container name="sidebar.categories" htmlTag="div" htmlClass="col-xs-12 home-page-t-shirt-categories" after="sidebar.delivery.box">
+                <block class="Magento\Framework\View\Element\Template" name="sidebar.cats.title" template="Magento_Theme::html/sidebarcats.phtml" />
+                <block class="Ashsmith\HelloWorld\Block\HelloWorld" name="category.tree" template="helloworld.phtml" after="sidebar.cats.title" />
+            </container>
+            <!-- sidebar our shirts block -->
+            <container name="sidebar.our.shirts" htmlTag="div" htmlClass="col-xs-12 home-page-our-shirts">
+                <block class="Magento\Cms\Block\Block" name="our.shirts">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">our-shirts</argument>
+                    </arguments>
+                </block>
+            </container>
+        </referenceContainer>
+
+        <!-- for move default main container into a col-sm-9 container -->
+        <referenceContainer name="div.12">
+            <container name="category.right.container" htmlTag="div" htmlClass="col-xs-12 col-sm-9 col-sm-push-3 home-page-content-right" />
+        </referenceContainer>
+
+        <referenceContainer name="main">
+            <container name="breadcrumb.main.container" htmlClass="category-breadcrumb col-xs-12 col-sm-6" htmlTag="div" before="main">
+                <container name="category.breadcrumb" htmlTag="div" htmlClass="category-breadcrumb-container pull-left">
+                    <block class="Magento\Theme\Block\Html\Breadcrumbs" name="breadcrumbs" as="breadcrumbs" />
+                </container>
+            </container>
+        </referenceContainer>
+
+        <move element="main" destination="category.right.container" />
+
+        <!-- remove additional sidebar -->
+        <referenceContainer name="div.sidebar.additional" remove="true" />
+        <referenceContainer name="sidebar.main" remove="true" />
+
+
+        <!-- move sidebar into col-md-12 container -->
+        <move element="div.sidebar.main" destination="div.12" />
+
+        <referenceContainer name="content">
+            <block class="Magento\Catalog\Block\Category\View" name="category.products" template="Magento_Catalog::category/products.phtml">
+                <block class="Magento\Catalog\Block\Product\ListProduct" name="category.products.list" as="product_list" template="Magento_Catalog::product/list.phtml">
+                    <container name="category.product.list.additional" as="additional" />
+                    <block class="Magento\Framework\View\Element\RendererList" name="category.product.type.details.renderers" as="details.renderers">
+                        <block class="Magento\Framework\View\Element\Template" as="default"/>
+                    </block>
+                    <block class="Magento\Catalog\Block\Product\ProductList\Toolbar" name="product_list_toolbar" template="Magento_Catalog::product/list/toolbar.phtml">
+                        <block class="Magento\Theme\Block\Html\Pager" name="product_list_toolbar_pager"/>
+                        <!-- The following code shows how to set your own pager increments -->
+                        <!--
+                            <action method="setDefaultListPerPage">
+                            <argument name="limit" xsi:type="string">4</argument>
+                        </action>
+                        <action method="setDefaultGridPerPage">
+                            <argument name="limit" xsi:type="string">3</argument>
+                        </action>
+                        <action method="addPagerLimit">
+                            <argument name="mode" xsi:type="string">list</argument>
+                            <argument name="limit" xsi:type="string">2</argument>
+                        </action>
+                        <action method="addPagerLimit">
+                            <argument name="mode" xsi:type="string">list</argument>
+                            <argument name="limit" xsi:type="string">4</argument>
+                        </action>
+                        <action method="addPagerLimit">
+                            <argument name="mode" xsi:type="string">list</argument>
+                            <argument name="limit" xsi:type="string">6</argument>
+                        </action>
+                        <action method="addPagerLimit">
+                            <argument name="mode" xsi:type="string">list</argument>
+                            <argument name="limit" xsi:type="string">8</argument>
+                        </action>
+                        <action method="addPagerLimit" translate="label">
+                            <argument name="mode" xsi:type="string">list</argument>
+                            <argument name="limit" xsi:type="string">all</argument>
+                            <argument name="label" xsi:type="string">All</argument>
+                        </action>
+                        <action method="addPagerLimit">
+                            <argument name="mode" xsi:type="string">grid</argument>
+                            <argument name="limit" xsi:type="string">3</argument>
+                        </action>
+                        <action method="addPagerLimit">
+                            <argument name="mode" xsi:type="string">grid</argument>
+                            <argument name="limit" xsi:type="string">6</argument>
+                        </action>
+                        <action method="addPagerLimit">
+                            <argument name="mode" xsi:type="string">grid</argument>
+                            <argument name="limit" xsi:type="string">9</argument>
+                        </action>
+                        <action method="addPagerLimit" translate="label">
+                            <argument name="mode" xsi:type="string">grid</argument>
+                            <argument name="limit" xsi:type="string">all</argument>
+                            <argument name="label" xsi:type="string">All</argument>
+                        </action>
+                        -->
+                    </block>
+                    <action method="setToolbarBlockName">
+                        <argument name="name" xsi:type="string">product_list_toolbar</argument>
+                    </action>
+                </block>
+            </block>
+            <block class="Magento\Cookie\Block\RequireCookie" name="require-cookie" template="Magento_Cookie::require_cookie.phtml">
+                <arguments>
+                    <argument name="triggers" xsi:type="array">
+                        <item name="compareProductLink" xsi:type="string">.action.tocompare</item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+
+        <referenceBlock name="page.main.title">
+            <arguments>
+                <argument name="id" xsi:type="string">page-title-heading</argument>
+                <argument name="add_base_attribute_aria" xsi:type="string">page-title-heading toolbar-amount</argument>
+            </arguments>
+            <block class="Magento\Catalog\Block\Category\Rss\Link" name="rss.link" template="Magento_Catalog::category/rss.phtml"/>
+        </referenceBlock>
+
+    </body>
+</page>

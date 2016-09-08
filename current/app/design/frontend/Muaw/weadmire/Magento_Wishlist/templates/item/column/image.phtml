@@ -1,0 +1,25 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/* @var \Magento\Wishlist\Model\Item $item */
+$item = $block->getItem();
+$product = $item->getProduct();
+?>
+<td class="wish-list-table-remove">
+    <div>
+        <a href="#" data-role="remove" data-post-remove='<?php /* @escapeNotVerified */ echo $block->getItemRemoveParams($block->getItem()); ?>' title="<?php /* @escapeNotVerified */ echo __('Remove Item') ?>" class="btn-remove action delete">
+            <span><?php /* @escapeNotVerified */ echo __('X');?></span>
+        </a>
+    </div>
+</td>
+
+<td class="wish-list-table-item">
+    <a class="product-item-photo" href="<?php /* @escapeNotVerified */ echo $block->getProductUrl($item) ?>" title="<?php echo $block->escapeHtml($product->getName()) ?>">
+        <?php echo $block->getImage($product, 'wishlist_thumbnail')->toHtml(); ?>
+    </a>
+</td>

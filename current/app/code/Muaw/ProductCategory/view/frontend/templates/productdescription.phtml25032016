@@ -1,0 +1,31 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Chamal
+ * Date: 1/8/16
+ * Time: 1:02 PM
+ */
+
+/**
+ * @var $block \Muaw\ProductCategory\Block\ProductCategory
+ */
+
+$_description = $block->getCurrentProductDescription();
+?>
+<div class="mCustomScrollbar">
+    <h2>About this design </h2>
+    <div class="col-xs-12 product-about-description">
+        <?php echo $_description;?>
+    </div>
+</div>
+<style>
+    .mCSB_scrollTools .mCSB_buttonUp {
+        background: url('<?php echo $this->getViewFileUrl('Muaw_ProductCategory::images/scroll-up.png') ?>') no-repeat center;
+        background-color: #e1e1e1;
+    }
+
+    .mCSB_scrollTools .mCSB_buttonDown {
+        background: url("<?php echo $this->getViewFileUrl('Muaw_ProductCategory::images/scroll-down.png') ?>") no-repeat center;
+        background-color: #e1e1e1;
+    }
+</style>

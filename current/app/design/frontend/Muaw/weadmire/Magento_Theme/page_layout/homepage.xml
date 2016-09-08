@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+    <update handle="empty"/>
+    <referenceContainer name="page.wrapper">
+        <!-- desktop menu -->
+        <container name="header.container" as="header_container" label="Page Header Container"  htmlTag="header" htmlClass="row header" before="main.content"/>
+
+        <!-- add mobile menu-->
+        <container name="mobile-header-container" htmlTag="div" htmlClass="row mobile-header" after="header.container"/>
+
+        <!-- add main slider -->
+        <container name="main.slider" htmlTag="div" htmlClass="row slider" after="mobile-header-container" />
+
+        <!-- mobile delivery box -->
+        <container name="mobile.delivery.box" htmlTag="div" htmlClass="row mobile-home-page-delivery-box" after="main.slider" />
+
+        <!-- main content area -->
+        <container name="main.content.area" htmlTag="div" htmlClass="row home-page-content" after="mobile.delivery.box" />
+
+        <!-- design block -->
+        <container name="home.designer" htmlTag="div" htmlClass="row our-designs-ribbon" after="main.content.area" />
+
+        <container name="page.top" as="page_top" label="After Page Header" after="header.container"/>
+
+        <container name="footer-container" as="footer" before="before.body.end" label="Page Footer Container" htmlTag="footer" htmlClass="row footer" />
+
+        <container name="additional-footer" htmlTag="div" htmlClass="row footer-bottom" after="footer" />
+
+        <!-- Remove main content area -->
+        <!--<referenceBlock name="main.content" remove="true" />-->
+    </referenceContainer>
+</layout>

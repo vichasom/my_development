@@ -1,0 +1,34 @@
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="block-title">
+    <strong>
+        <span class="text"><!-- ko i18n: 'My Cart' --><!-- /ko --></span>
+        <span
+                class="qty empty"
+                data-bind="css: { empty: cart().summary_count == 0 },
+                       attr: { title: $t('Items in Cart') }">
+            <!-- ko text: cart().summary_count --><!-- /ko -->
+        </span>
+    </strong>
+</div>
+
+<div class="block-content">
+    <!-- ko if: cart().summary_count -->
+
+    <div data-action="scroll" class="minicart-items-wrapper">
+        <ol id="mini-cart" class="minicart-items" data-bind="foreach: { data: cart().items, as: 'item' }">
+            <!-- ko foreach: $parent.getRegion($parent.getItemRenderer(item.product_type)) -->
+            <!-- ko template: {name: getTemplate(), data: item, afterRender: function() {$parents[1].initSidebar()}} --><!-- /ko -->
+            <!-- /ko -->
+        </ol>
+    </div>
+    <!-- /ko -->
+    
+</div>
+<!-- ko foreach: getRegion('sign-in-popup') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!-- /ko -->

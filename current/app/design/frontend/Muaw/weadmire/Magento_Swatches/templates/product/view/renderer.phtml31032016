@@ -1,0 +1,24 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php /** @var $block \Magento\Swatches\Block\Product\Renderer\Configurable */ ?>
+<div class="swatch-opt"></div>
+<script>
+    require(["jquery", "jquery/ui", "swatchRenderer"], function ($) {
+        gender_image_MC = "<?php echo $this->getViewFileUrl('Magento_Swatches::images/product-page-type.jpg'); ?>";
+        gender_image_W = "<?php echo $this->getViewFileUrl('Magento_Swatches::images/product-page-type_w.jpg'); ?>";
+
+        $('.swatch-opt').SwatchRenderer({
+            jsonConfig: <?php /* @escapeNotVerified */ echo $swatchOptions = $block->getJsonConfig(); ?>,
+            jsonSwatchConfig: <?php /* @escapeNotVerified */ echo $swatchOptions = $block->getJsonSwatchConfig(); ?>,
+            mediaCallback: '<?php /* @escapeNotVerified */ echo $block->getMediaCallback() ?>'
+        });
+
+        $(window).load(function(){
+            $('.gender-wrapper.swatch-attribute-options .nav-tabs li:first-child a').click();
+        });
+    });
+</script>

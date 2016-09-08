@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <attribute name="class" value="page-products"/>
+
+
+        <referenceContainer name="content">
+            <!-- right content area -->
+            <container name="home.right.block" htmlTag="div" htmlClass="col-xs-12 col-sm-9 col-sm-push-3 home-page-content-right">
+                <!-- breadcrumb container -->
+                <container name="breadcrumb.main.container" htmlClass="category-breadcrumb col-xs-12 col-sm-6" htmlTag="div" before="main">
+                    <container name="category.breadcrumb" htmlTag="div" htmlClass="category-breadcrumb-container pull-left">
+                        <block class="Magento\Theme\Block\Html\Breadcrumbs" name="breadcrumbs" as="breadcrumbs" />
+                    </container>
+                </container>
+
+                <block class="Magento\CatalogSearch\Block\Result" name="search.result" template="result.phtml" cacheable="false">
+                    <block class="Magento\CatalogSearch\Block\SearchResult\ListProduct" name="search_result_list" template="product/list.phtml" cacheable="false">
+                        <arguments>
+                            <!-- If argument's position depends on image size changeable in VDE:
+                            positions:list-secondary,grid-secondary,list-actions,grid-actions,list-primary,grid-primary
+                        -->
+                            <argument name="positioned" xsi:type="string">positions:list-secondary</argument>
+                        </arguments>
+                        <block class="Magento\Catalog\Block\Product\ProductList\Toolbar" name="product_list_toolbar" template="product/list/toolbar.phtml" cacheable="false">
+                            <block class="Magento\Theme\Block\Html\Pager" name="product_list_toolbar_pager" cacheable="false"/>
+                        </block>
+                        <action method="setToolbarBlockName">
+                            <argument name="name" xsi:type="string">product_list_toolbar</argument>
+                        </action>
+                        <block class="Magento\Framework\View\Element\RendererList" name="category.product.type.details.renderers" as="details.renderers">
+                            <block class="Magento\Framework\View\Element\Template" as="default"/>
+                        </block>
+                    </block>
+                    <action method="setListOrders"/>
+                    <action method="setListModes"/>
+                    <action method="setListCollection"/>
+                </block>
+            </container>
+
+            <!-- left sidebar -->
+            <container name="home.left.block" htmlTag="div" htmlClass="col-xs-12 col-sm-3 col-sm-pull-9 home-page-content-left" after="home.right.block">
+                <!-- sidebar delivery box -->
+                <container name="sidebar.delivery.box" htmlTag="div" htmlClass="col-xs-12 home-page-delivery-box">
+                    <block class="Magento\Cms\Block\Block" name="sidebar.delivery">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">sidebar-delivery</argument>
+                        </arguments>
+                    </block>
+                </container>
+                <!-- sidebar categories -->
+                <container name="sidebar.categories" htmlTag="div" htmlClass="col-xs-12 home-page-t-shirt-categories" after="sidebar.delivery.box">
+                    <block class="Magento\Framework\View\Element\Template" name="sidebar.cats.title" template="Magento_Theme::html/sidebarcats.phtml" />
+                    <block class="Ashsmith\HelloWorld\Block\HelloWorld" name="category.tree" template="helloworld.phtml" after="sidebar.cats.title" />
+                </container>
+                <!-- sidebar our shirts block -->
+                <container name="sidebar.our.shirts" htmlTag="div" htmlClass="col-xs-12 home-page-our-shirts">
+                    <block class="Magento\Cms\Block\Block" name="our.shirts">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">our-shirts</argument>
+                        </arguments>
+                    </block>
+                </container>
+            </container>
+        </referenceContainer>
+
+
+
+
+        <!-- remove some blocks specific to home page -->
+        <referenceBlock name="main.category.container" remove="true"/>
+        <referenceBlock name="home.featured" remove="true"/>
+        <referenceBlock name="home.right.content" remove="true"/>
+        <referenceBlock name="div.sidebar.additional" remove="true"/>
+    </body>
+</page>

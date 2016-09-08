@@ -1,0 +1,49 @@
+<?php
+/**
+ * @var $this \Ashsmith\HelloWorld\Block\HelloWorld
+ */
+
+$categories = $this->getStoreCategories(true, false, true);
+$categoryHelper = $this->getCategoryHelper();
+$_currentCategory = $this->getCurrentCategory();
+$currentCatId = '';
+if (!empty($_currentCategory)) {
+    $currentCatId = $_currentCategory->getId();
+}
+?>
+
+<ul>
+    <?php
+    foreach ($categories as $category):
+    if (!$category->getIsActive()) {
+        continue;
+    }
+
+    ?>
+    <li>
+        <a href="<?php echo $categoryHelper->getCategoryUrl($category) ?>"><?php echo $category->getName() ?></a>
+        <?php
+        $childrenCategories = $this->getChildCategories($category);
+        if (count($childrenCategories) && $currentCatId == $category->getId()): ?>
+            <ul class="home-page-sub-category">
+                <?php foreach ($childrenCategories as $childrenCategory):
+                    if (!$childrenCategory->getIsActive()) {
+                        continue;
+                    }
+                    ?>
+                    <li>
+                        <a href="<?php echo $categoryHelper->getCategoryUrl($childrenCategory) ?>"><?php echo $childrenCategory->getName() ?></a>
+                    </li>
+                <?php
+                endforeach;
+                ?>
+            </ul>
+        <?php
+        endif;
+        endforeach;
+        ?>
+    </li>
+</ul>
+<!--    <h1>OR</h1>
+--><?php /*echo $this->getHtml() */ ?>
+

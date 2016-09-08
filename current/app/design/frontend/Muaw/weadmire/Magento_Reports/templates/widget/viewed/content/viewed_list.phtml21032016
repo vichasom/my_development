@@ -1,0 +1,56 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * @var $block \Magento\Reports\Block\Product\Viewed
+ */
+?>
+<?php
+if ($exist = ($block->getRecentlyViewedProducts() && $block->getRecentlyViewedProducts()->getSize())) {
+    $type = 'widget-viewed';
+    $mode = 'list';
+
+    $type = $type . '-' . $mode;
+
+    $image = 'recently_viewed_products_list_content_widget';
+    $title = __('Recently Viewed');
+    $items = $block->getRecentlyViewedProducts();
+    $_helper = $this->helper('Magento\Catalog\Helper\Output');
+
+    $showWishlist = true;
+    $showCompare = true;
+    $showCart = true;
+    $rating = 'short';
+    $description = ($mode == 'list') ? true : false;
+}
+?>
+
+<?php if ($exist):?>
+
+    <div role="tabpanel" class="tab-pane in fade active" id="recently">
+        <?php foreach ($items as $_item): ?>
+            <div class="col-xs-6 col-sm-3 featured-product-box">
+                <div class="col-xs-12 featured-product-box-container">
+                    <a href="<?php /* @escapeNotVerified */ echo $block->getProductUrl($_item) ?>">
+                        <?php echo $block->getImage($_item, $image)->toHtml(); ?>
+
+                        <div class="product-featured-price">
+                            <?php /* @escapeNotVerified */ echo $block->getProductPrice($_item); ?>
+                        </div>
+                        <div class="product-featured-hover">
+                            IF YOU <span>ADMIRE</span>, CLICK TO READ MORE
+                        </div>
+                        <div class="col-xs-12 product-featured-description"><?php echo $block->escapeHtml($_item->getName()) ?></div>
+                    </a>
+                </div>
+            </div>
+        <?php endforeach;?>
+    </div>
+<?php endif;?>

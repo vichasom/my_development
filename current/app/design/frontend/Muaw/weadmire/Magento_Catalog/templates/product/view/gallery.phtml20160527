@@ -1,0 +1,142 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * Product media data template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View\Gallery
+ */
+?>
+<?php $_product = $this->getProduct();
+$artwork_top = $_product->getAdmireArtworkTop();
+$artwork_left = $_product->getAdmireArtworkLeft();
+$artwork_right = $_product->getAdmireArtworkRight();
+
+
+if (empty($artwork_left)) {
+    $artwork_left = '21%';
+} else {
+    $artwork_left = $artwork_left . "%";
+}
+
+if (empty($artwork_right)) {
+    $artwork_right = '21%';
+} else {
+    $artwork_right = $artwork_right . "%";
+}
+
+if (empty($artwork_top)) {
+    $artwork_top = '17%';
+} else {
+    $artwork_top = $artwork_top . "%";
+}
+?>
+<div class="product-sticker-design" style="left: <?php echo $artwork_left; ?>;right: <?php echo $artwork_right; ?>; top: <?php echo $artwork_top; ?>;">
+    <?php
+    /** @return string */
+    function getMediaBaseUrl()
+    {
+        /** @var \Magento\Framework\ObjectManagerInterface $om */
+        $om = \Magento\Framework\App\ObjectManager::getInstance();
+        /** @var \Magento\Store\Model\StoreManagerInterface $storeManager */
+        $storeManager = $om->get('Magento\Store\Model\StoreManagerInterface');
+        /** @var \Magento\Store\Api\Data\StoreInterface|\Magento\Store\Model\Store $currentStore */
+        $currentStore = $storeManager->getStore();
+        return $currentStore->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+    }
+
+    $_mediaUrl = getMediaBaseUrl();
+    if ($_product->getAdmireSticker()):
+        ?>
+        <img src="<?php echo $_mediaUrl . 'catalog/product/' . $_product->getAdmireSticker(); ?>"/>
+    <?php endif; ?>
+</div>
+<div class="gallery-placeholder _block-content-loading" data-gallery-role="gallery-placeholder">
+    <div data-role="loader" class="loading-mask">
+        <div class="loader">
+            <img src="<?php /* @escapeNotVerified */
+            echo $block->getViewFileUrl('images/loader-1.gif'); ?>"
+                 alt="<?php /* @escapeNotVerified */
+                 echo __('Loading...') ?>">
+        </div>
+    </div>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "[data-gallery-role=gallery-placeholder]": {
+            "mage/gallery/gallery": {
+                "mixins":["magnifier/magnify"],
+                "magnifierOpts": <?php /* @escapeNotVerified */
+    echo $block->getMagnifier(); ?>,
+                "data": <?php /* @escapeNotVerified */
+    echo $block->getGalleryImagesJson(); ?>,
+                "options": {
+                    "nav": "<?php /* @escapeNotVerified */
+    echo $block->getVar("gallery/nav"); ?>",
+                    "loop": <?php /* @escapeNotVerified */
+    echo $block->getVar("gallery/loop"); ?>,
+                    "keyboard": <?php /* @escapeNotVerified */
+    echo $block->getVar("gallery/keyboard"); ?>,
+                    "arrows": <?php /* @escapeNotVerified */
+    echo $block->getVar("gallery/arrows"); ?>,
+                    "allowfullscreen": <?php /* @escapeNotVerified */
+    echo $block->getVar("gallery/allowfullscreen"); ?>,
+                    "showCaption": <?php /* @escapeNotVerified */
+    echo $block->getVar("gallery/caption"); ?>,
+                    "width": <?php /* @escapeNotVerified */
+    echo $block->getImageAttribute('product_page_image_medium', 'width'); ?>,
+                    "thumbwidth": <?php /* @escapeNotVerified */
+    echo $block->getImageAttribute('product_page_image_small', 'width'); ?>,
+                    "thumbheight": <?php /* @escapeNotVerified */
+    echo $block->getImageAttribute('product_page_image_small', 'height')
+        ?: $block->getImageAttribute('product_page_image_small', 'width'); ?>,
+                    "height": <?php /* @escapeNotVerified */
+    echo $block->getImageAttribute('product_page_image_medium', 'height')
+        ?: $block->getImageAttribute('product_page_image_medium', 'width'); ?>,
+                    "transitionduration": <?php /* @escapeNotVerified */
+    echo $block->getVar("gallery/transition/duration"); ?>,
+                    "transition": "<?php /* @escapeNotVerified */
+    echo $block->getVar("gallery/transition/effect"); ?>",
+                    "navarrows": <?php /* @escapeNotVerified */
+    echo $block->getVar("gallery/navarrows"); ?>,
+                    "navtype": "<?php /* @escapeNotVerified */
+    echo $block->getVar("gallery/navtype"); ?>",
+                    "navdir": "<?php /* @escapeNotVerified */
+    echo $block->getVar("gallery/navdir"); ?>"
+                },
+                "fullscreen": {
+                    "nav": "<?php /* @escapeNotVerified */
+    echo $block->getVar("gallery/fullscreen/nav"); ?>",
+                    "loop": <?php /* @escapeNotVerified */
+    echo $block->getVar("gallery/fullscreen/loop"); ?>,
+                    "navdir": "<?php /* @escapeNotVerified */
+    echo $block->getVar("gallery/fullscreen/navdir"); ?>",
+                    "arrows": <?php /* @escapeNotVerified */
+    echo $block->getVar("gallery/fullscreen/arrows"); ?>,
+                    "showCaption": <?php /* @escapeNotVerified */
+    echo $block->getVar("gallery/fullscreen/caption"); ?>,
+                    "transitionduration": <?php /* @escapeNotVerified */
+    echo $block->getVar("gallery/fullscreen/transition/duration"); ?>,
+                    "transition": "<?php /* @escapeNotVerified */
+    echo $block->getVar("gallery/fullscreen/transition/effect"); ?>"
+                },
+                "breakpoints": <?php /* @escapeNotVerified */
+    echo $block->getBreakpoints(); ?>
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+</script>

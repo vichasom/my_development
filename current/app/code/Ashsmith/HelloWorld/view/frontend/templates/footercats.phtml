@@ -1,0 +1,23 @@
+<div class="col-xs-12 col-sm-3">
+    <div class="col-xs-12 footer-categories">
+        <h2>CATEGORIES</h2>
+        <?php
+        $categories = $this->getStoreCategories(true, false, true);
+        $categoryHelper = $this->getCategoryHelper();
+        ?>
+        <ul>
+            <?php
+            foreach ($categories as $category):
+                if (!$category->getIsActive()) {
+                    continue;
+                }
+
+                ?>
+                <li>
+                    <a href="<?php echo $categoryHelper->getCategoryUrl($category) ?>"><?php echo $category->getName() ?></a>
+
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Customer\Block\Form\Login $block */
+?>
+<?php
+/**
+ * Customer login form template
+ *
+ * @see \Magento\Customer\Block\Form\Login
+ * @var $block \Magento\Customer\Block\Form\Login
+ */
+?>
+
+<h2><?php /* @escapeNotVerified */ echo __('LOGIN') ?></h2>
+
+<div class="col-xs-12 account-login-description">
+    Login to view orders & wishlist
+</div>
+<form class="form form-login form-horizontal"
+      action="<?php /* @escapeNotVerified */ echo $block->getPostActionUrl() ?>"
+      method="post"
+      id="login-form"
+      data-mage-init='{"validation":{}}'>
+    <?php echo $block->getBlockHtml('formkey'); ?>
+    <div class="fieldset login" data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>">
+        <div class="email required form-group">
+            <div class="col-xs-12">
+                <input placeholder="<?php /* @escapeNotVerified */ echo __('Email *') ?>" name="login[username]" value="<?php echo $block->escapeHtml($block->getUsername()) ?>" <?php if ($block->isAutocompleteDisabled()) :?> autocomplete="off"<?php endif; ?> id="email" type="email" class="input-text" title="<?php /* @escapeNotVerified */ echo __('Email') ?>" data-validate="{required:true, 'validate-email':true}">
+            </div>
+        </div>
+        <div class="password required form-group">
+            <div class="col-xs-12">
+                <input placeholder="<?php /* @escapeNotVerified */ echo __('Password *') ?>" name="login[password]" type="password" <?php if ($block->isAutocompleteDisabled()) :?> autocomplete="off"<?php endif; ?> class="input-text" id="pass" title="<?php /* @escapeNotVerified */ echo __('Password') ?>" data-validate="{required:true, 'validate-password':true}">
+            </div>
+        </div>
+        <?php echo $block->getChildHtml('form_additional_info'); ?>
+        <div class="form-group account-login-forgot">
+            <div class="col-xs-12"><a class="action remind" href="<?php /* @escapeNotVerified */ echo $block->getForgotPasswordUrl() ?>"><span><?php /* @escapeNotVerified */ echo __('Forgot Password') ?></span></a></div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-xs-12">
+                <button type="submit" class="action login btn btn-default" name="send" id="send2"><?php /* @escapeNotVerified */ echo __('Login') ?></button>
+            </div>
+        </div>
+    </div>
+</form>

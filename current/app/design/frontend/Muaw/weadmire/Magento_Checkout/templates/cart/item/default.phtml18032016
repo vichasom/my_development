@@ -1,0 +1,147 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Checkout\Block\Cart\Item\Renderer */
+
+$_item = $block->getItem();
+$product = $_item->getProduct();
+$isVisibleProduct = $product->isVisibleInSiteVisibility();
+/** @var \Magento\Msrp\Helper\Data $helper */
+$helper = $this->helper('Magento\Msrp\Helper\Data');
+$canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinimalPriceLessMsrp($product);
+?>
+<tbody class="cart item">
+    <tr class="item-info">
+        <!--  remove column -->
+        <td class="cart-table-remove">
+            <?php /* @escapeNotVerified */ echo $block->getActions($_item) ?>
+        </td>
+
+        <!-- product image -->
+        <td class="cart-table-image">
+            <?php if ($block->hasProductUrl()):?>
+                <a href="<?php /* @escapeNotVerified */ echo $block->getProductUrl() ?>"
+                   title="<?php echo $block->escapeHtml($block->getProductName()) ?>"
+                   tabindex="-1">
+            <?php else:?>
+                <span class="product-item-photo">
+            <?php endif;?>
+            <div class="cart-sticker">
+                <?php
+                $om = \Magento\Framework\App\ObjectManager::getInstance();
+                $storeManager = $om->get('Magento\Store\Model\StoreManagerInterface');
+                $currentStore = $storeManager->getStore();
+                $prod_id = $_item->getProduct()->getId();
+                $_sticker = $_item->getProduct()->getResource()->getAttributeRawValue($prod_id, 'admire_sticker',$currentStore);
+                $_media_path = $currentStore->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+
+                if($_sticker):
+                    ?>
+                    <img src="<?php echo $_media_path.'catalog/product'.$_sticker; ?>" alt="sticker"/>
+                <?php endif; ?>
+
+                <?php
+                $artwork_top = $_item->getProduct()->getResource()->getAttributeRawValue($_item->getProduct()->getId(), 'admire_artwork_top', $currentStore);
+                $artwork_left = $_item->getProduct()->getResource()->getAttributeRawValue($_item->getProduct()->getId(), 'admire_artwork_left', $currentStore);
+                $artwork_right = $_item->getProduct()->getResource()->getAttributeRawValue($_item->getProduct()->getId(), 'admire_artwork_right', $currentStore);
+
+                echo 'Top: '.$artwork_top.'<br>';
+                echo 'Left: '.$artwork_left.'<br>';
+                echo 'Right: '.$artwork_right.'<br>';
+                ?>
+            </div>
+                <?php echo $block->getImage($block->getProductForThumbnail(), 'cart_page_product_thumbnail')->toHtml(); ?>
+            <?php if ($block->hasProductUrl()):?>
+                </a>
+            <?php else: ?>
+                </span>
+            <?php endif; ?>
+        </td>
+
+        <!-- product description -->
+        <td data-th="<?php echo $block->escapeHtml(__('Item')); ?>" class="cart-table-description">
+            <!-- product name -->
+            <div class="cart-description-header">
+                <?php if ($block->hasProductUrl()):?>
+                    <a href="<?php /* @escapeNotVerified */ echo $block->getProductUrl() ?>"><?php echo $block->escapeHtml($block->getProductName()) ?></a>
+                <?php else: ?>
+                    <?php echo $block->escapeHtml($block->getProductName()) ?>
+                <?php endif; ?>
+            </div>
+            <!--  Product options  -->
+            <div class="cart-description-sub-header">
+                <?php if ($_options = $block->getOptionList()):?>
+                    <?php $_optionCount = count($_options); $i=0; ?>
+                    <?php foreach ($_options as $_option) : ?>
+                        <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
+                        <?php echo $block->escapeHtml($_option['label']).':' ?>
+                            <?php if (isset($_formatedOptionValue['full_view'])): ?>
+                                <?php /* @escapeNotVerified */ echo $_formatedOptionValue['full_view'] ?>
+                            <?php else: ?>
+                                <?php /* @escapeNotVerified */ echo $_formatedOptionValue['value'] ?>
+                            <?php endif; ?>
+                        <?php
+                        if(++$i != $_optionCount) {
+                            echo $block->escapeHtml(__(','));
+                        }
+                        ?>
+                    <?php endforeach; ?>
+                <?php endif;?>
+            </div>
+            <!--  product edit option  -->
+            <div class="cart-description-anchor">
+                <?php
+                $_editUrl = $this->getUrl(
+                    'checkout/cart/configure',
+                    [
+                        'id' => $_item->getId(),
+                        'product_id' => $_item->getProduct()->getId()
+                    ]
+                );
+                ?>
+                <a href="<?php echo $_editUrl;?>">edit options</a>
+            </div>
+            <!-- additional information -->
+            <?php if ($messages = $block->getMessages()): ?>
+                <?php foreach ($messages as $message): ?>
+                    <div class="cart item message <?php /* @escapeNotVerified */ echo $message['type'] ?>"><div><?php echo $block->escapeHtml($message['text']) ?></div></div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            <?php $addInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
+            <?php if ($addInfoBlock): ?>
+                <?php echo $addInfoBlock->setItem($_item)->toHtml() ?>
+            <?php endif;?>
+        </td>
+
+        <!-- product quantity -->
+        <td class="cart-table-qty" data-th="<?php echo $block->escapeHtml(__('Qty')); ?>">
+            <div class="field qty">
+                <input id="cart-<?php /* @escapeNotVerified */ echo $_item->getId() ?>-qty"
+                       name="cart[<?php /* @escapeNotVerified */ echo $_item->getId() ?>][qty]"
+                       data-cart-item-id="<?php /* @escapeNotVerified */ echo $_item->getSku() ?>"
+                       value="<?php /* @escapeNotVerified */ echo $block->getQty() ?>"
+                       type="number"
+                       size="4"
+                       title="<?php echo $block->escapeHtml(__('Qty')); ?>"
+                       class="input-text qty"
+                       maxlength="12"
+                       data-validate="{required:true,'validate-greater-than-zero':true}"
+                       data-role="cart-item-qty"/>
+            </div>
+        </td>
+
+        <!-- product subtotal -->
+        <td class="cart-table-price" data-th="<?php echo $block->escapeHtml(__('Subtotal'));?>">
+            <?php if ($canApplyMsrp): ?>
+                <span class="cart msrp subtotal">--</span>
+            <?php else: ?>
+                <?php echo $block->getRowTotalHtml($_item); ?>
+            <?php endif; ?>
+        </td>
+    </tr>
+</tbody>

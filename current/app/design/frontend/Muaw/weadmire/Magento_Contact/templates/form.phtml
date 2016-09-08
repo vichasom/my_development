@@ -1,0 +1,49 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<h2><?php /* @escapeNotVerified */ echo __('Contact Form') ?></h2>
+
+<form class="form-horizontal"
+      action="<?php /* @escapeNotVerified */ echo $block->getFormAction(); ?>"
+      id="contact-form"
+      method="post"
+      data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>"
+      data-mage-init='{"validation":{}}'>
+
+    <div class="form-group">
+        <div class="col-xs-12 col-sm-12 field name required form-group">
+            <input placeholder="Name*" name="name" id="name" title="<?php /* @escapeNotVerified */ echo __('Name') ?>" value="<?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getUserName()) ?>" class="input-text" type="text" data-validate="{required:true}"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-xs-12 col-sm-6 field email required">
+            <input placeholder="Email*" name="email" id="email" title="<?php /* @escapeNotVerified */ echo __('Email') ?>" value="<?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getUserEmail()) ?>" class="input-text" type="email" data-validate="{required:true, 'validate-email':true}"/>
+        </div>
+        <div class="col-xs-12 col-sm-6 field telephone">
+            <input placeholder="Number" name="telephone" id="telephone" title="<?php /* @escapeNotVerified */ echo __('Phone Number') ?>" value="" class="input-text" type="text" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-xs-12 field comment required">
+            <textarea placeholder="Message*" name="comment" id="comment" title="<?php /* @escapeNotVerified */ echo __('What’s on your mind?') ?>" class="input-text" cols="5" rows="3" data-validate="{required:true}"></textarea>
+        </div>
+    </div>
+    <div class="form-group contact-us-button">
+        <div class="col-xs-12">
+            <span class="asteric">* </span><span> Required</span>
+            <input type="hidden" name="hideit" id="hideit" value="" />
+            <button type="submit" title="<?php /* @escapeNotVerified */ echo __('Send') ?>" class="action submit btn btn-default">
+                <?php /* @escapeNotVerified */ echo __('Send') ?>
+            </button>
+        </div>
+    </div>
+</form>
+

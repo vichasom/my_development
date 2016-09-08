@@ -1,0 +1,21 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Chamal
+ * Date: 1/9/16
+ * Time: 1:20 PM
+ */
+
+/**
+ * @var $block \Muaw\ProductCategory\Block\ProductCategory
+ * @var Magento\Framework\Pricing\Helper\Data $currency,
+ */
+?>
+<?php $block->getProductAmount();?>
+    <div class="price-box price-final_price" data-role="priceBox" data-product-id="<?php echo $block->getCurrentProductId(); ?>">
+        <span class="price-container price-final_price tax weee">
+            <span id="product-price-<?php echo $block->getCurrentProductId(); ?>" data-price-amount="<?php echo $block->getProductAmount(); ?>" data-price-type="finalPrice" class="price-wrapper">
+                <?php echo $block->getCurrentProductPrice(); ?>
+            </span>
+        </span>
+    </div>

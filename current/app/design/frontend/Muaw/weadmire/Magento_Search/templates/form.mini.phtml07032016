@@ -1,0 +1,169 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+?>
+<?php
+/** @var $block \Magento\Framework\View\Element\Template */
+/** @var $helper \Magento\Search\Helper\Data */
+$helper = $this->helper('Magento\Search\Helper\Data');
+?>
+<div class="header-navigation-left pull-left">
+    <div class="header-account pull-left">
+        <ul>
+            <li>
+                <?php
+                $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                $customerSession = $objectManager->get('Magento\Customer\Model\Session');
+                if($customerSession->isLoggedIn()):
+                ?>
+                    <a href="<?php echo $this->getUrl('customer/account');?>"><img src="<?php echo $this->getViewFileUrl('Magento_Search::/images/header-ico-account.png')?>" alt="<?php echo __('account icon')?>"/>My ACCOUNT</a> or
+                    <a href="<?php echo $this->getUrl("customer/account/logout");?>">LOGOUT</a>
+                <?php else:?>
+                    <a href="<?php echo $this->getUrl('customer/account/login');?>"><img src="<?php echo $this->getViewFileUrl('Magento_Search::/images/header-ico-account.png')?>" alt="<?php echo __('account icon')?>"/>CREATE AN ACCOUNT</a> or
+                    <a href="<?php echo $this->getUrl("customer/account/login");?>">LOGIN</a>
+                <?php endif;?>
+            </li>
+            <li>
+                <span data-bind="scope: 'wishlist'" class="link wishlist">
+                    <a href="<?php echo $this->getUrl('wishlist') ?>">
+                        <img src="<?php echo $this->getViewFileUrl('Magento_Search::/images/header-ico-wishlist.png')?>" alt="<?php echo __('wishlist icon')?>"/>
+                        <?php echo __('T-SHIRT WISHLIST') ?>
+                        <!-- ko if: wishlist().counter --><span data-bind="text: wishlist().counter" class="counter qty"></span><!-- /ko -->
+                    </a>
+                </span>
+            </li>
+        </ul>
+    </div>
+
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "Magento_Ui/js/core/app": {
+                    "components": {
+                        "wishlist": {
+                            "component": "Magento_Wishlist/js/view/wishlist"
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <div class="header-search">
+        <form class="form minisearch form-horizontal" id="search_mini_form" action="<?php /* @escapeNotVerified */ echo $helper->getResultUrl() ?>" method="get">
+            <div class="form-group">
+                <div class="">
+                    <input id="search"
+                           data-mage-init='{"quickSearch":{
+                                "formSelector":"#search_mini_form",
+                                "url":"<?php /* @escapeNotVerified */ echo $block->getUrl('search/ajax/suggest'); ?>",
+                                "destinationSelector":"#search_autocomplete"}
+                           }'
+                           type="text"
+                           name="<?php /* @escapeNotVerified */ echo $helper->getQueryParamName() ?>"
+                           value="<?php /* @escapeNotVerified */ echo $helper->getEscapedQueryText() ?>"
+                           placeholder="<?php /* @escapeNotVerified */ echo __('Search'); ?>"
+                           class="input-text"
+                           maxlength="<?php /* @escapeNotVerified */ echo $helper->getMaxQueryLength();?>"
+                           role="combobox"
+                           aria-haspopup="false"
+                           aria-autocomplete="both"
+                           autocomplete="off"/>
+                    <div id="search_autocomplete" class="search-autocomplete"></div>
+                    <button type="submit"
+                            title="<?php echo $block->escapeHtml(__('Search')) ?>"
+                            class="action search">
+                    </button>
+                    <div id="language-select">
+                        <span class="header-cart-arrow"></span>
+                        <table class="table table-responsive translation-links" id="translation-links">
+                            <tr>
+                                <td><a data-lang="English" href="#">English</a></td>
+                                <td><a data-lang="English" href="#">English</a></td>
+                            </tr>
+                            <tr>
+                                <td><a data-lang="German" href="#">German</a></td>
+                                <td><a data-lang="German" href="#">German</a></td>
+                            </tr>
+                            <tr>
+                                <td><a data-lang="French" href="#">French</a></td>
+                                <td><a data-lang="French" href="#">French</a></td>
+                            </tr>
+                            <tr>
+                                <td><a data-lang="USA" href="#">USA</a></td>
+                                <td><a data-lang="USA" href="#">USA</a></td>
+                            </tr>
+                            <tr>
+                                <td><a data-lang="Italy" href="#">Italy</a></td>
+                                <td><a data-lang="Italy" href="#">Italy</a></td>
+                            </tr>
+                            <tr>
+                                <td><a data-lang="English" href="#">English</a></td>
+                                <td><a data-lang="English" href="#">English</a></td>
+                            </tr>
+                            <tr>
+                                <td><a data-lang="German" href="#">German</a></td>
+                                <td><a data-lang="German" href="#">German</a></td>
+                            </tr>
+                            <tr>
+                                <td><a data-lang="French" href="#">French</a></td>
+                                <td><a data-lang="French" href="#">French</a></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div style="width: 65px;" id="google_translate_element"></div>
+
+                    <script type="text/javascript">
+                        function googleTranslateElementInit() {
+                            new google.translate.TranslateElement({
+                                pageLanguage: 'en',
+                                autoDisplay: false
+                            }, 'google_translate_element'); //remove the layout
+                        }
+                    </script>
+                    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
+
+                    <script>
+                        require(["jquery"], function ($) {
+                            function triggerHtmlEvent(element, eventName) {
+                                var event;
+                                if (document.createEvent) {
+                                    event = document.createEvent('HTMLEvents');
+                                    event.initEvent(eventName, true, true);
+                                    element.dispatchEvent(event);
+                                } else {
+                                    event = document.createEventObject();
+                                    event.eventType = eventName;
+                                    element.fireEvent('on' + event.eventType, event);
+                                }
+                            }
+                            <!-- Flag click handler -->
+                            $('.translation-links a').click(function (e) {
+                                e.preventDefault();
+                                var lang = $(this).data('lang');
+                                $('#google_translate_element select option').each(function () {
+                                    if ($(this).text().indexOf(lang) > -1) {
+                                        $(this).parent().val($(this).val());
+                                        var container = document.getElementById('google_translate_element');
+                                        var select = container.getElementsByTagName('select')[0];
+                                        triggerHtmlEvent(select, 'change');
+                                    }
+                                });
+                            });
+
+                            $('#language-select').hover(function () {
+                                $('#translation-links').fadeToggle(200);
+                                $('.header-cart-arrow').fadeToggle(200);
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

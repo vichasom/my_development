@@ -1,0 +1,48 @@
+<h2>Studio Opening Times</h2>
+
+<div class="col-xs-12 contact-page-map-description">9am to 6pm every weekday - 11am to 6pm on Saturdays - 12pm to 4pm on
+    Sundays
+</div>
+<div class="col-xs-12 contact-page-map">
+    <div id="map"></div>
+</div>
+
+<script>
+    function initMap() {
+
+        // Specify features and elements to define styles.
+        var styleArray = [
+            {
+                featureType: "all",
+                stylers: [
+                    {saturation: -80}
+                ]
+            }, {
+                featureType: "road.arterial",
+                elementType: "geometry",
+                stylers: [
+                    {hue: "#00ffee"},
+                    {saturation: 50}
+                ]
+            }, {
+                featureType: "poi.business",
+                elementType: "labels",
+                stylers: [
+                    {visibility: "off"}
+                ]
+            }
+        ];
+
+        // Create a map object and specify the DOM element for display.
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: -34.397, lng: 150.644},
+            scrollwheel: false,
+            // Apply the map style array to the map.
+            styles: styleArray,
+            zoom: 8
+        });
+    }
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEIODMXGIqKinqg1Y58ojPbBKmK6eWYlg&callback=initMap">
+</script>

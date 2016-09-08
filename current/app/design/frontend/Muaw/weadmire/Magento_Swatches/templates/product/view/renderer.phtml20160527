@@ -1,0 +1,295 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php /** @var $block \Magento\Swatches\Block\Product\Renderer\Configurable */ ?>
+<div class="swatch-opt"></div>
+<div class="size-popup">
+
+<div class="row sizes">
+<div class="col-xs-12">
+<div class="col-xs-12 size-content">
+<div class="col-xs-12 col-left column-wrapper">
+    <div class="col-xs-12 heading">mens t-shirt</div>
+    <div class="col-xs-12 size-table">
+        <table class="table table-responsive">
+            <tbody>
+                <tr>
+                    <td class="table-heading">size</td>
+                    <td class="table-heading">Chest</td>
+                    <td class="table-heading">length</td>
+                </tr>
+                <tr>
+                    <td>Small</td>
+                    <td>39 - 40</td>
+                    <td>29</td>
+                </tr>
+                <tr>
+                    <td>Medium</td>
+                    <td>42 - 44</td>
+                    <td>30</td>
+                </tr>
+                <tr>
+                    <td>Large</td>
+                    <td>45 - 47</td>
+                    <td>31</td>
+                </tr>
+                <tr>
+                    <td>X Large</td>
+                    <td>48 - 50</td>
+                    <td>32</td>
+                </tr>
+                <tr>
+                    <td>XX Large</td>
+                    <td>51 - 53</td>
+                    <td>33</td>
+                </tr>
+                <tr>
+                    <td>XXX Large</td>
+                    <td>54 - 56</td>
+                    <td>34</td>
+                </tr>
+            </tbody>
+        </table>
+        <span class="small-text">Imperial</span></div>
+    <div class="heading col-xs-12">womans t-shirt</div>
+    <div class="col-xs-12 size-table">
+        <table class="table table-responsive">
+            <tbody>
+                <tr>
+                    <td class="table-heading">size</td>
+                    <td class="table-heading">Chest</td>
+                    <td class="table-heading">length</td>
+                </tr>
+                <tr>
+                    <td>X Small</td>
+                    <td>36 - 38</td>
+                    <td>28</td>
+                </tr>
+                <tr>
+                    <td>Small</td>
+                    <td>39 - 40</td>
+                    <td>29</td>
+                </tr>
+                <tr>
+                    <td>Medium</td>
+                    <td>42 - 44</td>
+                    <td>30</td>
+                </tr>
+                <tr>
+                    <td>Large</td>
+                    <td>45 - 47</td>
+                    <td>31</td>
+                </tr>
+                <tr>
+                    <td>X Large</td>
+                    <td>48 - 50</td>
+                    <td>32</td>
+                </tr>
+                <tr>
+                    <td>XX Large</td>
+                    <td>51 - 53</td>
+                    <td>33</td>
+                </tr>
+            </tbody>
+        </table>
+        <span class="small-text">Imperial</span></div>
+    <div class="col-xs-12 heading">childrens t-shirt</div>
+    <div class="col-xs-12 size-table">
+        <table class="table table-responsive">
+            <tbody>
+                <tr>
+                    <td class="table-heading">size</td>
+                    <td class="table-heading">Chest</td>
+                    <td class="table-heading">length</td>
+                </tr>
+                <tr>
+                    <td>3-4yrs</td>
+                    <td>36 - 38</td>
+                    <td>28</td>
+                </tr>
+                <tr>
+                    <td>5-6yrs</td>
+                    <td>39 - 40</td>
+                    <td>29</td>
+                </tr>
+                <tr>
+                    <td>7-8yrs</td>
+                    <td>42 - 44</td>
+                    <td>30</td>
+                </tr>
+                <tr>
+                    <td>9-10yrs</td>
+                    <td>45 - 47</td>
+                    <td>31</td>
+                </tr>
+                <tr>
+                    <td>11-12 yrs</td>
+                    <td>48 - 50</td>
+                    <td>32</td>
+                </tr>
+            </tbody>
+        </table>
+        <span class="small-text">Imperial</span></div>
+</div>
+<div class="col-xs-12 col-right column-wrapper">
+    <div class="col-xs-12 heading">mens t-shirt</div>
+    <div class="col-xs-12 size-table">
+        <table class="table table-responsive">
+            <tbody>
+                <tr>
+                    <td class="table-heading">size</td>
+                    <td class="table-heading">Chest</td>
+                    <td class="table-heading">length</td>
+                </tr>
+                <tr>
+                    <td>Small</td>
+                    <td>39 - 40</td>
+                    <td>29</td>
+                </tr>
+                <tr>
+                    <td>Medium</td>
+                    <td>42 - 44</td>
+                    <td>30</td>
+                </tr>
+                <tr>
+                    <td>Large</td>
+                    <td>45 - 47</td>
+                    <td>31</td>
+                </tr>
+                <tr>
+                    <td>X Large</td>
+                    <td>48 - 50</td>
+                    <td>32</td>
+                </tr>
+                <tr>
+                    <td>XX Large</td>
+                    <td>51 - 53</td>
+                    <td>33</td>
+                </tr>
+                <tr>
+                    <td>XXX Large</td>
+                    <td>54 - 56</td>
+                    <td>34</td>
+                </tr>
+            </tbody>
+        </table>
+        <span class="small-text"> Metric </span></div>
+    <div class="col-xs-12 heading">womans t-shirt</div>
+    <div class="col-xs-12 size-table">
+        <table class="table table-responsive">
+            <tbody>
+                <tr>
+                    <td class="table-heading">size</td>
+                    <td class="table-heading">Chest</td>
+                    <td class="table-heading">length</td>
+                </tr>
+                <tr>
+                    <td>X Small</td>
+                    <td>36 - 38</td>
+                    <td>28</td>
+                </tr>
+                <tr>
+                    <td>Small</td>
+                    <td>39 - 40</td>
+                    <td>29</td>
+                </tr>
+                <tr>
+                    <td>Medium</td>
+                    <td>42 - 44</td>
+                    <td>30</td>
+                </tr>
+                <tr>
+                    <td>Large</td>
+                    <td>45 - 47</td>
+                    <td>31</td>
+                </tr>
+                <tr>
+                    <td>X Large</td>
+                    <td>48 - 50</td>
+                    <td>32</td>
+                </tr>
+                <tr>
+                    <td>XX Large</td>
+                    <td>51 - 53</td>
+                    <td>33</td>
+                </tr>
+            </tbody>
+        </table>
+        <span class="small-text"> Metric </span></div>
+    <div class="col-xs-12 heading">childrens t-shirt</div>
+    <div class="col-xs-12 size-table">
+        <table class="table table-responsive">
+            <tbody>
+                <tr>
+                    <td class="table-heading">size</td>
+                    <td class="table-heading">Chest</td>
+                    <td class="table-heading">length</td>
+                </tr>
+                <tr>
+                    <td>3-4yrs</td>
+                    <td>36 - 38</td>
+                    <td>28</td>
+                </tr>
+                <tr>
+                    <td>5-6yrs</td>
+                    <td>39 - 40</td>
+                    <td>29</td>
+                </tr>
+                <tr>
+                    <td>7-8yrs</td>
+                    <td>42 - 44</td>
+                    <td>30</td>
+                </tr>
+                <tr>
+                    <td>9-10yrs</td>
+                    <td>45 - 47</td>
+                    <td>31</td>
+                </tr>
+                <tr>
+                    <td>11-12 yrs</td>
+                    <td>48 - 50</td>
+                    <td>32</td>
+                </tr>
+            </tbody>
+        </table>
+        <span class="small-text"> Metric </span></div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<script>
+    require(["jquery", "jquery/ui", "swatchRenderer"], function ($) {
+        gender_image_MC = "<?php echo $this->getViewFileUrl('Magento_Swatches::images/product-page-type.jpg'); ?>";
+        gender_image_W = "<?php echo $this->getViewFileUrl('Magento_Swatches::images/product-page-type_w.jpg'); ?>";
+
+        $('.swatch-opt').SwatchRenderer({
+            jsonConfig: <?php /* @escapeNotVerified */ echo $swatchOptions = $block->getJsonConfig(); ?>,
+            jsonSwatchConfig: <?php /* @escapeNotVerified */ echo $swatchOptions = $block->getJsonSwatchConfig(); ?>,
+            mediaCallback: '<?php /* @escapeNotVerified */ echo $block->getMediaCallback(); ?>'
+        });
+
+        $(window).load(function () {
+            $('.gender-wrapper.swatch-attribute-options .nav-tabs li:first-child a').click();
+        });
+
+        $(document).ready(function () {
+            var size_popup = $('.size-popup');
+            $('.size-chart').click(function (e) {
+                e.preventDefault();
+                $(size_popup).stop(true, false).fadeToggle(200);
+            });
+            $(document).click(function (event) {
+                if (!$(event.target).closest('.size-popup').length && !$(event.target).is('.size-popup') && !$(event.target).closest('.size-chart').length && !$(event.target).is('.size-chart')) {
+                    if ($(size_popup).is(":visible")) {
+                        $(size_popup).stop(true, false).fadeOut(200);
+                    }
+                }
+            });
+        });
+    });
+</script>

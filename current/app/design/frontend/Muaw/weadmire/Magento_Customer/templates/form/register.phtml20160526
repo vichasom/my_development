@@ -1,0 +1,175 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Create account form template
+ *
+ * @var $block \Magento\Customer\Block\Form\Register
+ */
+?>
+<?php echo $block->getChildHtml('form_fields_before')?>
+<?php /* Extensions placeholder */ ?>
+<?php echo $block->getChildHtml('customer.form.register.extra')?>
+
+<div class="col-xs-12 create-account-from">
+    <h2><?php /* @escapeNotVerified */ echo __('CREATE ACCOUNT') ?></h2>
+
+    <div class="col-xs-12 create-account-from-container">
+        <form class="form-horizontal form-create-account" action="<?php /* @escapeNotVerified */ echo $block->getPostActionUrl() ?>" method="post" id="form-validate" enctype="multipart/form-data" autocomplete="off">
+            <input type="hidden" name="success_url" value="<?php /* @escapeNotVerified */ echo $block->getSuccessUrl() ?>">
+            <input type="hidden" name="error_url" value="<?php /* @escapeNotVerified */ echo $block->getErrorUrl() ?>">
+
+            <div class="form-group">
+                <?php echo $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Name')->setObject($block->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>
+            </div>
+            <input type="hidden" name="create_address" value="1" />
+            <div class="form-group field required">
+                <div class="col-xs-12 col-sm-6">
+                    <input placeholder="<?php /* @escapeNotVerified */ echo __('Email *') ?>" type="email" name="email" id="email_address" value="<?php echo $block->escapeHtml($block->getFormData()->getEmail()) ?>" title="<?php /* @escapeNotVerified */ echo __('Email') ?>" class="input-text" data-validate="{required:true, 'validate-email':true}">
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <input placeholder="<?php /* @escapeNotVerified */ echo __('Mobile *') ?>" type="text" name="telephone" id="telephone" value="<?php echo $block->escapeHtml($block->getFormData()->getTelephone()) ?>" title="<?php /* @escapeNotVerified */ echo __('Phone Number') ?>" class="input-text <?php /* @escapeNotVerified */ echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('telephone') ?>">
+                </div>
+            </div>
+
+            <?php $_dob = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob') ?>
+            <?php if ($_dob->isEnabled()): ?>
+                <?php echo $_dob->setDate($block->getFormData()->getDob())->toHtml() ?>
+            <?php endif ?>
+
+            <?php $_taxvat = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Taxvat') ?>
+            <?php if ($_taxvat->isEnabled()): ?>
+                <?php echo $_taxvat->setTaxvat($block->getFormData()->getTaxvat())->toHtml() ?>
+            <?php endif ?>
+
+            <?php $_gender = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Gender') ?>
+            <?php if ($_gender->isEnabled()): ?>
+                <?php echo $_gender->setGender($block->getFormData()->getGender())->toHtml() ?>
+            <?php endif ?>
+
+
+
+
+                <?php $_streetValidationClass = $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('street'); ?>
+
+            <div class="form-group street required">
+                <div class="col-xs-12">
+                    <input placeholder="<?php /* @escapeNotVerified */ echo __('Address *') ?>" type="text" name="street[]" value="<?php echo $block->escapeHtml($block->getFormData()->getStreet(0)) ?>" title="<?php /* @escapeNotVerified */ echo __('Street Address') ?>" id="street_1" class="input-text <?php /* @escapeNotVerified */ echo $_streetValidationClass ?>">
+
+                </div>
+            </div>
+            <div class="form-group street required">
+                <div class="col-xs-12">
+                    <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
+                    <?php for ($_i = 2, $_n = $this->helper('Magento\Customer\Helper\Address')->getStreetLines(); $_i <= $_n; $_i++): ?>
+                        <input type="text" name="street[]" value="<?php echo $block->escapeHtml($block->getFormData()->getStreetLine($_i - 1)) ?>" title="<?php /* @escapeNotVerified */ echo __('Street Address %1', $_i) ?>" id="street_<?php /* @escapeNotVerified */ echo $_i ?>" class="input-text <?php /* @escapeNotVerified */ echo $_streetValidationClass ?>">
+                    <?php endfor; ?>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-12 col-sm-6 field required">
+                    <input placeholder="<?php /* @escapeNotVerified */ echo __('City *') ?>" type="text" name="city" value="<?php echo $block->escapeHtml($block->getFormData()->getCity()) ?>" title="<?php /* @escapeNotVerified */ echo __('City') ?>" class="input-text <?php /* @escapeNotVerified */ echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('city') ?>" id="city">
+                </div>
+                <div class="col-xs-12 col-sm-6 field region required">
+                    <select id="region_id" name="region_id" title="<?php /* @escapeNotVerified */ echo __('State/Province') ?>" class="validate-select" style="display:none;">
+                        <option value=""><?php /* @escapeNotVerified */ echo __('Please select a region, state or province.') ?></option>
+                    </select>
+                    <input placeholder="<?php /* @escapeNotVerified */ echo __('State/Province') ?>" type="text" id="region" name="region" value="<?php echo $block->escapeHtml($block->getRegion()) ?>" title="<?php /* @escapeNotVerified */ echo __('State/Province') ?>" class="input-text <?php /* @escapeNotVerified */ echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('region') ?>" style="display:none;">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-12 col-sm-6 field country required">
+                    <?php echo $block->getCountryHtmlSelect() ?>
+                </div>
+                <div class="col-xs-12 col-sm-6 field zip required">
+                    <input placeholder="<?php /* @escapeNotVerified */ echo __('Zip/Postal Code') ?>" type="text" name="postcode" value="<?php echo $block->escapeHtml($block->getFormData()->getPostcode()) ?>" title="<?php /* @escapeNotVerified */ echo __('Zip/Postal Code') ?>" id="zip" class="input-text validate-zip-international <?php /* @escapeNotVerified */ echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('postcode') ?>">
+                </div>
+            </div>
+
+            <?php $addressAttributes = $block->getChildBlock('customer_form_address_user_attributes');?>
+            <?php if ($addressAttributes): ?>
+                <?php $addressAttributes->setEntityType('customer_address'); ?>
+                <?php $addressAttributes->setFieldIdFormat('address:%1$s')->setFieldNameFormat('address[%1$s]');?>
+                <?php $block->restoreSessionData($addressAttributes->getMetadataForm(), 'address');?>
+                <?php echo $addressAttributes->setShowContainer(false)->toHtml()?>
+            <?php endif;?>
+            <input type="hidden" name="default_billing" value="1">
+            <input type="hidden" name="default_shipping" value="1">
+
+            <div class="form-group account-form-break"></div>
+
+            <div class="form-group">
+                <div class="col-xs-12 col-sm-6 field password required">
+                    <input placeholder="<?php /* @escapeNotVerified */ echo __('Password *') ?>" type="password" name="password" id="password" title="<?php /* @escapeNotVerified */ echo __('Password') ?>" class="input-text" data-validate="{required:true, 'validate-password':true}" autocomplete="off">
+                </div>
+                <div class="col-xs-12 col-sm-6 field confirmation required">
+                    <input placeholder="<?php /* @escapeNotVerified */ echo __('Re-type Password *') ?>" type="password" name="password_confirmation" title="<?php /* @escapeNotVerified */ echo __('Confirm Password') ?>" id="password-confirmation" class="input-text" data-validate="{required:true, equalTo:'#password'}" autocomplete="off">
+                </div>
+            </div>
+            <?php echo $block->getChildHtml('form_additional_info'); ?>
+            <div class="form-group create-account-button">
+                <div class="col-xs-12">
+                    <span class="button-asterix">*</span><span> Fields are required | Contact us <a href="<?php echo $this->getUrl('contact')?>">here</a> for help</span>
+                    <button type="submit" class="action submit pull-right" title="<?php /* @escapeNotVerified */ echo __('Create an Account') ?>"><?php /* @escapeNotVerified */ echo __('Create an Account') ?></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    require([
+        'jquery',
+        'mage/mage'
+    ], function($){
+
+        var dataForm = $('#form-validate');
+        var ignore = <?php /* @escapeNotVerified */ echo $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null'; ?>;
+
+        dataForm.mage('validation', {
+            <?php if ($_dob->isEnabled()): ?>
+            errorPlacement: function(error, element) {
+                if (element.prop('id').search('full') !== -1) {
+                    var dobElement = $(element).parents('.customer-dob'),
+                        errorClass = error.prop('class');
+                    error.insertAfter(element.parent());
+                    dobElement.find('.validate-custom').addClass(errorClass)
+                        .after('<div class="' + errorClass + '"></div>');
+                }
+                else {
+                    error.insertAfter(element);
+                }
+            },
+            ignore: ':hidden:not(' + ignore + ')'
+            <?php else: ?>
+            ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
+            <?php endif ?>
+        }).find('input:text').attr('autocomplete', 'off');
+
+    });
+</script>
+
+<script type="text/x-magento-init">
+    {
+        "#country": {
+            "regionUpdater": {
+                "optionalRegionAllowed": <?php /* @escapeNotVerified */ echo($block->getConfig('general/region/display_all') ? 'true' : 'false'); ?>,
+                "regionListId": "#region_id",
+                "regionInputId": "#region",
+                "postcodeId": "#zip",
+                "form": "#form-validate",
+                "regionJson": <?php /* @escapeNotVerified */ echo $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>,
+                "defaultRegion": "<?php /* @escapeNotVerified */ echo $block->getFormData()->getRegionId() ?>",
+                "countriesWithOptionalZip": <?php /* @escapeNotVerified */ echo $this->helper('Magento\Directory\Helper\Data')->getCountriesWithOptionalZip(true) ?>
+            }
+        }
+    }
+</script>

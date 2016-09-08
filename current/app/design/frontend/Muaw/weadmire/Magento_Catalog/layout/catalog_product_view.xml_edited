@@ -1,0 +1,236 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="mage/gallery/gallery.css"/>
+        <css src="Magento_Catalog::css/jquery.mCustomScrollbar.css"/>
+    </head>
+    <update handle="catalog_product_opengraph"/>
+    <update handle="page_calendar"/>
+    <body>
+        <attribute name="itemtype" value="http://schema.org/Product"/>
+        <attribute name="itemscope" value="itemscope"/>
+        <referenceBlock name="head.components">
+            <block class="Magento\Framework\View\Element\Js\Components" name="checkout_page_head_components"
+                   template="Magento_Catalog::js/components.phtml"/>
+        </referenceBlock>
+
+        <referenceContainer name="columns.top">
+            <container name="product_cat_title" htmlTag="div" before="category.view.container"/>
+            <container name="category.view.container" htmlTag="div" htmlClass="row category-description" after="-">
+                <block class="Muaw\ProductCategory\Block\ProductCategory" name="prod_cats"
+                       template="prodcatdesc.phtml"/>
+            </container>
+        </referenceContainer>
+
+        <move element="page.main.title" destination="product_cat_title"/> <!-- move product title to top -->
+        <move element="page.messages" destination="columns.top"
+              after="product_cat_title"/> <!-- move product message block -->
+
+        <referenceContainer name="product.info.details" remove="true"/>
+
+        <referenceBlock name="page.main.title">
+            <arguments>
+                <argument name="css_class" xsi:type="string">product</argument>
+                <argument name="add_base_attribute" xsi:type="string">itemprop="name"</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="root">
+            <arguments>
+                <argument name="add_attribute" xsi:type="string">itemscope itemtype="http://schema.org/Product"
+                </argument>
+            </arguments>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <container name="product.info.main" htmlTag="div"
+                       htmlClass="col-xs-12 col-sm-9 col-sm-push-3 home-page-content-right" before="-">
+
+                <!-- breadcrumb -->
+                <container name="prod_breadcrumb" htmlClass="category-breadcrumb" htmlTag="div">
+                    <container name="category.breadcrumb" htmlTag="div"
+                               htmlClass="category-breadcrumb-container pull-left">
+                        <block class="Magento\Theme\Block\Html\Breadcrumbs" name="breadcrumbs" as="breadcrumbs"/>
+                    </container>
+                </container>
+
+                <!-- product page container -->
+                <container name="prod_page_container" htmlClass="col-xs-12 product-page-content" htmlTag="div">
+                    <!-- prod left container for media -->
+                    <container name="prod_left" htmlClass="col-xs-12 col-sm-6 product-page-left" htmlTag="div">
+                        <!-- media image section -->
+                        <container name="product.info.media" htmlTag="div" htmlClass="product media"
+                                   after="product.info.main">
+                            <block class="Magento\Catalog\Block\Product\View\Gallery" name="product.info.media.image"
+                                   template="product/view/gallery.phtml"/>
+                        </container>
+                        <container name="social_media_links" htmlClass="col-xs-12 product-page-image-social"
+                                   htmlTag="div">
+                            <block name="social_links" class="Muaw\ProductCategory\Block\ProductCategory"
+                                   template="sociallinks.phtml"/>
+                        </container>
+                    </container>
+
+                    <!-- prod right container -->
+                    <container name="prod_right" htmlTag="div" htmlClass="col-xs-12 col-sm-6 product-page-right">
+                        <!-- product title -->
+                        <block class="Muaw\ProductCategory\Block\ProductCategory" name="prod_title"
+                               template="productname.phtml"/>
+                        <!-- price block -->
+                        <container name="product.info.price" label="Product info auxiliary container" htmlTag="div"
+                                   htmlClass="product-page-price" after="product.info.review">
+                            <block class="Magento\Catalog\Pricing\Render" name="product.price.final"
+                                   after="product.info.sku">
+                                <arguments>
+                                    <argument name="price_render" xsi:type="string">product.price.render.default
+                                    </argument>
+                                    <argument name="price_type_code" xsi:type="string">final_price</argument>
+                                    <argument name="zone" xsi:type="string">item_view</argument>
+                                </arguments>
+                            </block>
+                            <!--<block name="custom_prod_price" class="Muaw\ProductCategory\Block\ProductCategory" template="prodprice.phtml" />-->
+                        </container>
+                        <block class="Magento\Catalog\Pricing\Render" name="product.price.tier"
+                               after="product.info.price">
+                            <arguments>
+                                <argument name="price_render" xsi:type="string">product.price.render.default</argument>
+                                <argument name="price_type_code" xsi:type="string">tier_price</argument>
+                                <argument name="zone" xsi:type="string">item_view</argument>
+                            </arguments>
+                        </block>
+                        <container name="alert.urls" as="alert_urls" label="Alert Urls" after="product.price.tier"/>
+                        <!-- product options -->
+                        <block class="Magento\Catalog\Block\Product\View" name="product.info"
+                               template="product/view/form.phtml" after="alert.urls">
+                            <container name="product.info.form.content" as="product_info_form_content">
+                                <block class="Magento\Catalog\Block\Product\View" name="product.info.addtocart"
+                                       as="addtocart" template="product/view/addtocart.phtml"/>
+                            </container>
+                            <block class="Magento\Framework\View\Element\Template" name="product.info.form.options"
+                                   as="options_container">
+                                <block class="Magento\Catalog\Block\Product\View" name="product.info.options.wrapper"
+                                       as="product_options_wrapper" template="product/view/options/wrapper.phtml">
+                                    <block class="Magento\Catalog\Block\Product\View\Options"
+                                           name="product.info.options" as="product_options"
+                                           template="product/view/options.phtml">
+                                        <block class="Magento\Catalog\Block\Product\View\Options\Type\DefaultType"
+                                               as="default" template="product/view/options/type/default.phtml"/>
+                                        <block class="Magento\Catalog\Block\Product\View\Options\Type\Text" as="text"
+                                               template="product/view/options/type/text.phtml"/>
+                                        <block class="Magento\Catalog\Block\Product\View\Options\Type\File" as="file"
+                                               template="product/view/options/type/file.phtml"/>
+                                        <block class="Magento\Catalog\Block\Product\View\Options\Type\Select"
+                                               as="select" template="product/view/options/type/select.phtml"/>
+                                        <block class="Magento\Catalog\Block\Product\View\Options\Type\Date" as="date"
+                                               template="product/view/options/type/date.phtml"/>
+                                    </block>
+                                    <block class="Magento\Framework\View\Element\Html\Calendar" name="html_calendar"
+                                           as="html_calendar" template="Magento_Theme::js/calendar.phtml"/>
+                                </block>
+                                <block class="Magento\Catalog\Block\Product\View"
+                                       name="product.info.options.wrapper.bottom" as="product_options_wrapper_bottom"
+                                       template="product/view/options/wrapper/bottom.phtml">
+                                    <block class="Magento\Catalog\Block\Product\View"
+                                           name="product.info.addtocart.additional" as="product.info.addtocart"
+                                           template="product/view/addtocart.phtml"/>
+                                </block>
+                            </block>
+                        </block>
+                    </container>
+                    <!-- prod about design -->
+                    <container name="prod_about_design" htmlClass="col-xs-12 product-page-about-this-design"
+                               htmlTag="div" after="prod_right">
+                        <block class="Muaw\ProductCategory\Block\ProductCategory" name="prod_description"
+                               template="productdescription.phtml"/>
+                        <block class="Muaw\ProductCategory\Block\ProductCategory" name="prod_desc_component"
+                               template="prodcomponent.phtml"/>
+                    </container>
+                </container>
+            </container>
+
+            <!-- product page left sidebar -->
+            <container name="product_sidebar" htmlClass="col-xs-12 col-sm-3 col-sm-pull-9 home-page-content-left"
+                       htmlTag="div">
+                <!-- sidebar delivery box -->
+                <container name="sidebar.delivery.box" htmlTag="div" htmlClass="col-xs-12 home-page-delivery-box">
+                    <block class="Magento\Cms\Block\Block" name="sidebar.delivery">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">sidebar-delivery</argument>
+                        </arguments>
+                    </block>
+                </container>
+                <!-- sidebar categories -->
+                <container name="sidebar.categories" htmlTag="div" htmlClass="col-xs-12 home-page-t-shirt-categories"
+                           after="sidebar.delivery.box">
+                    <block class="Magento\Framework\View\Element\Template" name="sidebar.cats.title"
+                           template="Magento_Theme::html/sidebarcats.phtml"/>
+                    <block class="Ashsmith\HelloWorld\Block\HelloWorld" name="category.tree" template="helloworld.phtml"
+                           after="sidebar.cats.title"/>
+                </container>
+            </container>
+
+            <block class="Magento\Cookie\Block\RequireCookie" name="require-cookie"
+                   template="Magento_Cookie::require_cookie.phtml">
+                <arguments>
+                    <argument name="triggers" xsi:type="array">
+                        <item name="compareProductLink" xsi:type="string">.action.tocompare</item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+
+        <!-- featured product section -->
+        <referenceContainer name="content.aside">
+            <container name="product_bottom_lists" htmlTag="div" htmlClass="col-xs-12 product-page-featured-products">
+                <!-- tab nav -->
+                <block class="Muaw\ProductCategory\Block\ProductCategory" name="prod_nav_tab" template="tabnav.phtml"
+                       before="prod_tab_pane"/>
+                <!-- Tab panes -->
+                <container name="prod_tab_pane" htmlClass="tab-content" htmlTag="div">
+                    <!-- recently viewed products -->
+                    <block class="Magento\Cms\Block\Block" name="prod_recently_viewed_products">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">recently-viewed</argument>
+                        </arguments>
+                    </block>
+
+                    <!-- related products -->
+                    <block class="Magento\Catalog\Block\Product\ProductList\Related" name="catalog.product.related"
+                           template="Magento_Catalog::product/list/items.phtml">
+                        <arguments>
+                            <argument name="type" xsi:type="string">related</argument>
+                            <argument name="position_limit" xsi:type="string">4</argument>
+                        </arguments>
+                    </block>
+
+                    <!-- popular products -->
+                    <block class="Muaw\LatestProducts\Block\LatestProducts" name="prod_popular_products"
+                           template="popular.phtml" after="catalog.product.related"/>
+
+                    <!-- remove upsell product block -->
+                    <referenceBlock name="product.info.upsell" remove="true"/>
+
+                    <!-- remove crosssell product block -->
+                    <referenceBlock name="product.info.crosssell" remove="true"/>
+
+                    <block class="Magento\Catalog\Block\Product\View\Additional" name="product.info.additional"
+                           as="product_additional_data"/>
+                </container>
+            </container>
+        </referenceContainer>
+
+
+        <referenceBlock name="product.info.addtocart">
+            <block class="Magento\Catalog\Block\ShortcutButtons\InCatalog" name="addtocart.shortcut.buttons"/>
+        </referenceBlock>
+        <referenceBlock name="product.info.addtocart.additional">
+            <block class="Magento\Catalog\Block\ShortcutButtons\InCatalog"
+                   name="addtocart.shortcut.buttons.additional"/>
+        </referenceBlock>
+    </body>
+</page>

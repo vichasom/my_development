@@ -1,0 +1,241 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+use Magento\Framework\App\Action\Action;
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @var $block \Magento\Catalog\Block\Product\ListProduct
+ * @var $customprice Muaw\ProductCategory\Block\ProductCategory
+ */
+?>
+<?php
+$_productCollection = $block->getLoadedProductCollection();
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+?>
+<?php if (!$_productCollection->count()): ?>
+    <div class="message info empty">
+        <div><?php /* @escapeNotVerified */
+            echo __('We can\'t find products matching the selection.') ?></div>
+    </div>
+<?php else: ?>
+    <?php echo $block->getToolbarHtml() ?>
+    <?php echo $block->getAdditionalHtml() ?>
+    <?php
+    if ($block->getMode() == 'grid') {
+        $viewMode = 'grid';
+        $image = 'category_page_grid';
+        $showDescription = false;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+    } else {
+        $viewMode = 'list';
+        $image = 'category_page_list';
+        $showDescription = true;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIEW;
+    }
+    /**
+     * Position for actions regarding image size changing in vde if needed
+     */
+    $pos = $block->getPositioned();
+    ?>
+    <div class="products wrapper <?php /* @escapeNotVerified */
+    echo $viewMode; ?> products-<?php /* @escapeNotVerified */
+    echo $viewMode; ?>">
+        <?php $iterator = 1; ?>
+        <div class="col-xs-12 home-page-right-container">
+            <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
+            <?php foreach ($_productCollection as $_product): ?>
+                <?php
+                $productImage = $block->getImage($_product, $image);
+                ?>
+                <?php /* @escapeNotVerified */
+                echo ($iterator++ == 1) ? '<div class="col-sm-3 col-xs-6 home-page-category-box  product-' . $_product->getId() . '">' : '</div><div class="col-sm-3 col-xs-6 home-page-category-box  product-' . $_product->getId() . '">' ?>
+
+                <a href="<?php /* @escapeNotVerified */
+                echo $_product->getProductUrl() ?>">
+                    <div class="col-xs-12 home-page-category-heading"><?php /* @escapeNotVerified */
+                        echo $_helper->productAttribute($_product, $_product->getName(), 'name'); ?>
+                    </div>
+                </a>
+                <a href="<?php /* @escapeNotVerified */
+                echo $_product->getProductUrl() ?>">
+                    <div class="col-xs-12 category-image-wrapper">
+                        <div class="col-xs-12 category-sticker-container">
+                            <?php
+                            $om = \Magento\Framework\App\ObjectManager::getInstance();
+                            $storeManager = $om->get('Magento\Store\Model\StoreManagerInterface');
+                            $currentStore = $storeManager->getStore();
+                            $artwork_top = $_product->getResource()->getAttributeRawValue($_product->getId(), 'admire_artwork_top', $currentStore);
+                            $artwork_left = $_product->getResource()->getAttributeRawValue($_product->getId(), 'admire_artwork_left', $currentStore);
+                            $artwork_right = $_product->getResource()->getAttributeRawValue($_product->getId(), 'admire_artwork_right', $currentStore);
+
+                            if (empty($artwork_left)) {
+                                $artwork_left = '21%';
+                            } else {
+                                $artwork_left = $artwork_left . "%";
+                            }
+
+                            if (empty($artwork_right)) {
+                                $artwork_right = '21%';
+                            } else {
+                                $artwork_right = $artwork_right . "%";
+                            }
+
+                            if (empty($artwork_top)) {
+                                $artwork_top = '17%';
+                            } else {
+                                $artwork_top = $artwork_top . "%";
+                            }
+                            ?>
+                            <div class="product-sticker-image" data-top="<?php echo $artwork_top; ?>" data-left="<?php echo $artwork_left; ?>" data-right="<?php echo $artwork_right; ?>" style="left: <?php echo $artwork_left; ?>;right: <?php echo $artwork_right; ?>; top: <?php echo $artwork_top; ?>;">
+                                <?php
+                                $_sticker = $_product->getResource()->getAttributeRawValue($_product->getId(), 'admire_sticker', $currentStore);
+                                $_media_path = $currentStore->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+                                if ($_sticker):
+                                    ?>
+                                    <img src="<?php echo $_media_path . 'catalog/product' . $_sticker; ?>" alt="sticker"/>
+                                <?php endif; ?>
+                            </div>
+                            <?php
+                            $image = 'product_page_main_image';
+                            $_imagehelper = $this->helper('Magento\Catalog\Helper\Image');
+                            $productImage = $_imagehelper->init($_product, $image)->constrainOnly(FALSE)->keepAspectRatio(TRUE)->keepFrame(FALSE)->resize(400)->getUrl();
+                            ?>
+                            <img src="<?php echo $productImage; ?>" alt="<?php echo $_product->getName(); ?>"/>
+                            <?php //echo $productImage->toHtml(); ?>
+                        </div>
+                    </div>
+                </a>
+                <div class="home-page-category-hover-with-images">
+                            <span>
+                                <?php if ($this->helper('Magento\Wishlist\Helper\Data')->isAllow()): ?>
+                                    <a href="#"
+                                       class="action towishlist"
+                                       title="<?php echo $block->escapeHtml(__('Add to Wish List')); ?>"
+                                       aria-label="<?php echo $block->escapeHtml(__('Add to Wish List')); ?>"
+                                       data-post='<?php /* @escapeNotVerified */
+                                       echo $block->getAddToWishlistParams($_product); ?>'
+                                       data-action="add-to-wishlist"
+                                       role="button">
+                                        <img src="<?php echo $this->getViewFileUrl('Magento_Catalog::images/mobile-category-hover-wishlist.jpg') ?>" alt=""/>
+                                    </a>
+                                <?php endif; ?>
+                                <img src="<?php echo $this->getViewFileUrl('Magento_Catalog::images/mobile-category-hover-share.jpg') ?>" alt=""/>
+                                <a href="<?php /* @escapeNotVerified */
+                                echo $_product->getProductUrl() ?>">SEE DESIGN</a>
+                            </span>
+                </div>
+
+                <div class="home-page-category-price"><?php /* @escapeNotVerified */
+                    echo $block->getProductPrice($_product) ?></div>
+
+                <?php echo ($iterator == count($_productCollection) + 1) ? '</div>' : '' ?>
+            <?php endforeach; ?>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        require(["jquery"], function ($) {
+            $.fn.extend({
+                equalHeight: function (call_back_function) {
+                    $(this).css('height', 'auto');
+                    var max_height = 0;
+                    $(this).each(function () {
+                        if ($(this).height() > max_height) {
+                            max_height = $(this).height();
+                        }
+                    }).promise().done(function () {
+                        $(this).height(max_height);
+                        call_back_function();
+                    });
+                }
+            });
+
+            $(document).ready(function () {
+                $('.home-page-category-box').hover(function () {
+                    if ($(window).width() > 767) {
+                        $(this).find('.home-page-category-hover-with-images').stop(true, false).fadeIn(200);
+                    } else {
+                        $('.home-page-category-hover-with-images').css('display', 'none');
+                    }
+                }, function () {
+                    $(this).find('.home-page-category-hover-with-images').stop(true, false).fadeOut(200);
+                });
+                $('.home-page-category-heading').equalHeight(function () {
+                    var height = $('.home-page-category-heading').outerHeight();
+                    $('.home-page-category-price').css('top', height + 'px');
+                });
+
+                $('.home-page-category-box').hover(function () {
+                    var this_left = parseFloat($(this).find('.product-sticker-image').data('left'));
+                    var this_right = parseFloat($(this).find('.product-sticker-image').data('right'));
+                    var left = 0;
+                    var right = 0;
+                    if (this_left > 21) {
+                        left = 2 * (this_left - 21);
+                    } else {
+                        left = 10;
+                    }
+                    if (this_right > 21) {
+                        right = 2 * (this_right - 21);
+                    } else {
+                        right = 10;
+                    }
+
+//                    $(this).find('.category-image-wrapper').css({
+//                        'background': '#ffffff'
+//                    });
+//                    $(this).find('.category-sticker-container > img').css({
+//                        'opacity': '0'
+//                    });
+                    $(this).find('.product-sticker-image').css({
+//                        'opacity': '1',
+                        'top': '0',
+                        'left': left + '%',
+                        'right': right + '%'
+                    });
+                }, function () {
+                    var this_top = $(this).find('.product-sticker-image').data('top');
+                    var this_left = $(this).find('.product-sticker-image').data('left');
+                    var this_right = $(this).find('.product-sticker-image').data('right');
+//                    $(this).find('.category-image-wrapper').css({
+//                        'background': '#f0f0f0'
+//                    });
+//                    $(this).find('.category-sticker-container > img').css({
+//                        'opacity': '1'
+//                    });
+                    $(this).find('.product-sticker-image').css({
+//                        'opacity': '1',
+                        'top': this_top,
+                        'left': this_left,
+                        'right': this_right
+                    });
+                });
+            });
+            $(window).resize(function () {
+                $('.home-page-category-heading').equalHeight(function () {
+                    var height = $('.home-page-category-heading').outerHeight();
+                    $('.home-page-category-price').css('top', height + 'px');
+                });
+            });
+        });
+    </script>
+
+    <?php echo $block->getToolbarHtml() ?>
+    <?php if (!$block->isRedirectToCartEnabled()) : ?>
+        <script type="text/x-magento-init">
+        {
+            "[data-role=tocart-form], .form.map.checkout": {
+                "catalogAddToCart": {}
+            }
+        }
+        </script>
+    <?php endif; ?>
+<?php endif; ?>

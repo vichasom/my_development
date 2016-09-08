@@ -1,0 +1,60 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**  @var $block \Magento\Checkout\Block\Cart */
+?>
+<?php $mergedCells = ($this->helper('Magento\Tax\Helper\Data')->displayCartBothPrices() ? 2 : 1); ?>
+<?php echo $block->getChildHtml('form_before') ?>
+<form action="<?php /* @escapeNotVerified */ echo $block->getUrl('checkout/cart/updatePost') ?>"
+          method="post"
+          id="form-validate"
+          data-mage-init='{"validation":{}}'>
+    <?php echo $block->getBlockHtml('formkey'); ?>
+    <div class="cart">
+        <table id="shopping-cart-table"
+               class="table table-bordered"
+               data-mage-init='{"shoppingCart":{"emptyCartButton": "action.clear",
+               "updateCartActionContainer": "#update_cart_action_container"}}'>
+            <caption role="heading" aria-level="2" class="table-caption"><?php /* @escapeNotVerified */ echo __('Shopping Cart Items') ?></caption>
+            <thead class="cart-table-heading">
+                <tr>
+                    <th class="col remove" scope="col"><span><?php /* @escapeNotVerified */ echo __('Remove') ?></span></th>
+                    <th class="col item" scope="col"><span><?php /* @escapeNotVerified */ echo __('Item') ?></span></th>
+                    <th class="col description" scope="col"><span><?php /* @escapeNotVerified */ echo __('Description') ?></span></th>
+                    <th class="col qty" scope="col"><span><?php /* @escapeNotVerified */ echo __('Quantity') ?></span></th>
+                    <th class="col subtotal" scope="col"><span><?php /* @escapeNotVerified */ echo __('Price') ?></span></th>
+                </tr>
+            </thead>
+            <?php foreach ($block->getItems() as $_item): ?>
+                <?php echo $block->getItemHtml($_item) ?>
+            <?php endforeach ?>
+        </table>
+    </div>
+    <div class="cart main actions continue-shopping">
+        <?php if ($block->getContinueShoppingUrl()): ?>
+            <img src="<?php echo $this->getViewFileUrl('Magento_Checkout::images/ico-continue-shopping.png') ?>" alt="">
+            <a class="action continue"
+               href="<?php echo $block->escapeUrl($block->getContinueShoppingUrl()) ?>"
+               title="<?php echo $block->escapeHtml(__('Continue Shopping')); ?>">
+                <span><?php /* @escapeNotVerified */ echo __('Continue Shopping') ?></span>
+            </a>
+        <?php endif; ?>
+        <button type="submit"
+                name="update_cart_action"
+                data-cart-item-update=""
+                value="update_qty"
+                title="<?php echo $block->escapeHtml(__('Update Shopping Cart')); ?>"
+                class="action update">
+            <span><?php /* @escapeNotVerified */ echo __('Update Shopping Cart'); ?></span>
+        </button>
+        <input type="hidden" value="" id="update_cart_action_container" data-cart-item-update=""/>
+    </div>
+</form>
+<?php echo $block->getChildHtml('checkout.cart.order.actions') ?>
+<?php echo $block->getChildHtml('shopping.cart.table.after'); ?>
+

@@ -1,0 +1,74 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+
+<?php
+$om = \Magento\Framework\App\ObjectManager::getInstance();
+$storeManager = $om->get('Magento\Store\Model\StoreManagerInterface');
+$currentStore = $storeManager->getStore();
+$base_url = $currentStore->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_LINK);
+?>
+<div class="col-xs-12 col-sm-3">
+    <div class="col-xs-12 footer-account">
+        <h2>My ACCOUNT</h2>
+        <ul>
+            <li><a href="<?php echo $this->getUrl('customer/account') ?>">Login/MY ACCOUNT </a></li>
+            <li><a href="<?php echo $this->getUrl('checkout/cart') ?>">cArt </a></li>
+            <li><a href="<?php echo $this->getUrl('checkout') ?>">CHECKOUT </a></li>
+            <li><a href="<?php echo $this->getUrl('wishlist') ?>">wishlist</a></li>
+        </ul>
+    </div>
+    <div class="col-xs-12 footer-be-sociable">
+        <h2>Be Sociable</h2>
+        <ul>
+            <li><a target="_blank" href="https://twitter.com/WeAdmire">twitter </a></li>
+            <li><a target="_blank" href="https://plus.google.com/108423218188167397227">google+</a></li>
+            <li><a target="_blank" href="https://www.instagram.com/weadmiretshirts/">INSTAGRAM</a></li>
+            <li><a target="_blank" href="https://www.facebook.com/WeAdmire">FACEBOOK</a></li>
+        </ul>
+    </div>
+</div>
+<div class="col-xs-12 col-sm-3">
+    <div class="footer-about col-xs-12">
+        <h2>ABOUT</h2>
+        <ul>
+            <li><a href="<?php echo $base_url; ?>our-designs">our Designs </a></li>
+            <li><a href="<?php echo $base_url; ?>colours-and-sizes">Colours & sizes </a></li>
+            <li><a href="<?php echo $base_url; ?>delivery-and-returns">Delivery and Returns </a></li>
+<!--            <li><a href="#">company background </a></li>-->
+            <li><a href="<?php echo $base_url; ?>cookies-and-privacy-policy">cookies & privacy </a></li>
+        </ul>
+    </div>
+    <div class="footer-quick-links col-xs-12">
+        <h2>Quick LInks</h2>
+        <ul>
+            <li><a href="<?php echo $base_url; ?>contact">Contact US </a></li>
+            <li><a href="<?php echo $base_url; ?>contact">FIND US </a></li>
+            <li><a href="<?php echo $base_url; ?>contact">Studio opening hours </a></li>
+        </ul>
+    </div>
+</div>
+<div class="col-xs-12 col-sm-3">
+    <div class="footer-get-in-touch col-xs-12">
+        <h2>Get In Touch</h2>
+        <ul>
+            <li>WeAdmire Ltd</li>
+            <li>13-15 Great Eastern Street</li>
+            <li>London, EC2A 3EJ</li>
+            <li class="footer-phone"> +44 (0)20 7377 1801</li>
+            <li class="footer-mail">customerservices@weadmire.net</li>
+            <li class="footer-social">
+                <a target="_blank" href="https://twitter.com/WeAdmire"><img src="<?php echo $this->getViewFileUrl('Magento_Theme::/images/footer-twitter.png') ?>" alt="<?php echo __('weadmire twitter') ?>"/></a>
+                <a target="_blank" href="https://plus.google.com/108423218188167397227"><img src="<?php echo $this->getViewFileUrl('Magento_Theme::/images/footer-gplus.png') ?>" alt="<?php echo __('weadmire google plus') ?>"/></a>
+                <a target="_blank" href="https://www.instagram.com/weadmiretshirts/"><img src="<?php echo $this->getViewFileUrl('Magento_Theme::/images/footer-instagram.png') ?>" alt="<?php echo __('weadmire instagram') ?>"/></a>
+                <a target="_blank" href="https://www.facebook.com/WeAdmire"><img src="<?php echo $this->getViewFileUrl('Magento_Theme::/images/footer-facebook.png') ?>" alt="<?php echo __('weadmire facebook') ?>"/></a>
+            </li>
+        </ul>
+    </div>
+</div>

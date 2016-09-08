@@ -1,0 +1,83 @@
+.tshirtview-wrapper > .fieldset > .legend {
+    position: static;
+    float: left;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0;
+    border-bottom: 1px solid #cac3b4;
+    margin: 0 0 18px;
+}
+
+.tshirtview-wrapper > .fieldset > .legend span {
+    color: #303030;
+    font-size: 1.7rem;
+    font-weight: 600;
+    padding: 7px 0 10px;
+    display: inline-block;
+}
+
+.tshirtview-wrapper > .tshirt-image-wrapper > .tshirt-image > .product-sticker-image {
+    position: absolute;
+    top: 17%;
+    left: 21%;
+    right: 21%;
+}
+
+.tshirtview-wrapper > .tshirt-image-wrapper > .tshirt-image.preview-image {
+    margin: auto;
+    display: block;
+    float: none;
+}
+
+.product-sticker-image {
+    position: absolute;
+    top: 17%;
+    left: 21%;
+    right: 21%;
+}
+
+.tshirtview-wrapper > .tshirt-image-wrapper > .tshirt-image img {
+    width: 100%;
+}
+
+.tshirtview-wrapper > .tshirt-image-wrapper > .tshirt-image {
+    width: 25%;
+    float: left;
+    position: relative;
+}
+
+.tshirtview-wrapper > .tshirt-image-wrapper {
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.product-view-url {
+    background: #CCFFBB;
+    border: none;
+    border-radius: 0;
+    color: #333333;
+    font-size: 1.4rem;
+    margin: 0 0 20px;
+    padding: 1.8rem 4rem 1.8rem 5.5rem;
+    position: relative;
+    text-shadow: none;
+}
+
+.product-view-url:before {
+    color: #007bdb;
+    content: '\e61a';
+    font-family: 'Admin Icons';
+    font-size: 1.9rem;
+    font-style: normal;
+    font-weight: 400;
+    height: auto;
+    left: 1.9rem;
+    line-height: inherit;
+    margin-top: -1.3rem;
+    position: absolute;
+    speak: none;
+    text-shadow: none;
+    top: 50%;
+    width: auto;
+    background: none;
+}

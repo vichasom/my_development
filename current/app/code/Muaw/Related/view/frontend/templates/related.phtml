@@ -1,0 +1,56 @@
+<?php
+$productIds = $this->getRelatedProducts();
+$_imagehelper = $this->helper('Magento\Catalog\Helper\Image');
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$storeManager = $objectManager->get('Magento\Store\Model\StoreManagerInterface');
+$currentStore = $storeManager->getStore();
+$_media_path = $currentStore->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+?>
+
+<div role="tabpanel" class="tab-pane fade" id="related">
+    <?php $i = 0;
+    foreach ($productIds as $id): ?>
+        <?php $_product = $objectManager->get('Magento\Catalog\Model\Product')->load($id); ?>
+        <div class="col-xs-6 col-sm-3 featured-product-box">
+            <div class="col-xs-12 featured-product-box-container">
+                <a href="<?php echo $_product->getUrlModel()->getUrl($_product); ?>">
+                    <?php $_sticker = $_product->getResource()->getAttributeRawValue($_product->getId(), 'admire_sticker', $currentStore);
+                    $artwork_top = $_product->getResource()->getAttributeRawValue($_product->getId(), 'admire_artwork_top', $currentStore);
+                    $artwork_left = $_product->getResource()->getAttributeRawValue($_product->getId(), 'admire_artwork_left', $currentStore);
+                    $artwork_right = $_product->getResource()->getAttributeRawValue($_product->getId(), 'admire_artwork_right', $currentStore);
+
+                    echo 'Top: ' . $artwork_top . '<br>';
+                    echo 'Left: ' . $artwork_left . '<br>';
+                    echo 'Right: ' . $artwork_right . '<br>';
+                    ?>
+                    <div class="col-xs-12 product-image-wrapper">
+                        <div class="col-xs-12 product-image-container">
+                            <div class="product-sticker-image">
+                                <img src="<?php echo $_media_path . 'catalog/product' . $_sticker; ?>" alt="<?php echo $_category->getName(); ?>-artwork">
+                            </div>
+                            <img src="<?php echo $_imagehelper->init($_product, 'recently_viewed_products_list_content_widget')->resize(270)->getUrl(); ?>" alt=""/>
+                        </div>
+                    </div>
+                    <div class="product-featured-price">
+                        <?php
+                        // TODO: find a better way to remove decimal points from the price
+                        $roundedPrice = ceil($_product->getFinalPrice());
+                        $priceWithCurrency = $this->helper('Magento\Framework\Pricing\Helper\Data')->currency($roundedPrice, true, true);
+                        $price = explode(".", $priceWithCurrency);
+
+                        echo $price[0];
+                        ?>
+                    </div>
+                    <div class="product-featured-hover">
+                        IF YOU <span>ADMIRE</span>, CLICK TO READ MORE
+                    </div>
+                    <div class="col-xs-12 product-featured-description"><?php echo $_product->getName(); ?></div>
+                </a>
+            </div>
+        </div>
+        <?php
+        $i++;
+        if ($i == 3) break;
+        ?>
+    <?php endforeach; ?>
+</div>

@@ -1,0 +1,71 @@
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active">
+        <a href="#recently" aria-controls="recently" role="tab" data-toggle="tab">Recently viewed</a>
+    </li>
+    <li role="presentation">
+        <a href="#related" aria-controls="related" role="tab" data-toggle="tab">Related Products</a>
+    </li>
+    <li role="presentation">
+        <a href="#popular" aria-controls="popular" role="tab" data-toggle="tab">Popular designs</a>
+    </li>
+</ul>
+
+<script type="text/javascript">
+    require(["jquery"], function (jQuery) {
+        jQuery(window).load(function () {
+            jQuery('.product-page-featured-products .tab-pane').each(function () {
+                var elelment_id = '';
+                var id = jQuery(this).attr('id');
+                var list =
+                {
+                    'recently': [
+                        {
+                            'id': 'recently',
+                            'status': 0
+                        }
+                    ],
+                    'related': [
+                        {
+                            'id': 'related',
+                            'status': 0
+                        }
+                    ],
+                    'popular': [
+                        {
+                            'id': 'popular',
+                            'status': 0
+                        }
+                    ]
+                };
+
+                jQuery.each(list, function (i, item) {
+                    if (i == id) {
+                        item[0].status = 1;
+                    }
+                });
+
+                jQuery.each(list, function (i, item) {
+                    if (item[0].status == 0) {
+                        element_id = 'a[href="#' + item[0].id + '"]';
+                        jQuery(element_id).parent().remove();
+                    }
+                });
+
+                jQuery.each(list, function (i, item) {
+                    if (item[0].status == 1) {
+                        element_id = 'a[href="#' + item[0].id + '"]';
+                        var tab_id = '#' + item[0].id;
+                        if (!jQuery(tab_id).hasClass('in')) {
+                            jQuery(tab_id).addClass('in');
+                        }
+                        if (!jQuery(element_id).parent().hasClass('active')) {
+                            jQuery(element_id).parent().addClass('active');
+                            return false;
+                        }
+                    }
+                });
+            });
+        });
+    });
+</script>

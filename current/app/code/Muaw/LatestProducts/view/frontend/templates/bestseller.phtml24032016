@@ -1,0 +1,51 @@
+<?php
+$_productCollection = $block->getBestSellingProducts();
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+$imageBlock = $block->getLayout()->createBlock('Magento\Catalog\Block\Product\Image');
+?>
+<?php
+$viewMode = 'grid';
+$image = 'category_page_grid';
+$showDescription = false;
+$templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+
+/**
+ * Position for actions regarding image size changing in vde if needed
+ */
+$pos = $block->getPositioned();
+$position = '';
+?>
+<?php if ($_productCollection->count()): ?>
+    <?php foreach ($_productCollection as $_product): ?>
+        <?php $productImage = $block->getImage($_product, $image); ?>
+        <div class="featured-slider-container col-xs-12">
+            <a href="<?php /* @escapeNotVerified */
+            echo $_product->getProductUrl() ?>" tabindex="-1">
+                <div class="product-sticker-image">
+                    <?php
+                    $om = \Magento\Framework\App\ObjectManager::getInstance();
+                    $storeManager = $om->get('Magento\Store\Model\StoreManagerInterface');
+                    $currentStore = $storeManager->getStore();
+                    $_sticker = $_product->getResource()->getAttributeRawValue($_product->getId(), 'admire_sticker', $currentStore);
+                    $_media_path = $currentStore->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+                    if ($_sticker):
+                        ?>
+                        <img src="<?php echo $_media_path . 'catalog/product' . $_sticker; ?>" alt="sticker"/>
+                    <?php endif; ?>
+                </div>
+                <?php echo $productImage->toHtml(); ?>
+            </a>
+        </div>
+
+        <?php
+        $artwork_top = $_product->getResource()->getAttributeRawValue($_product->getId(), 'admire_artwork_top', $currentStore);
+        $artwork_left = $_product->getResource()->getAttributeRawValue($_product->getId(), 'admire_artwork_left', $currentStore);
+        $artwork_right = $_product->getResource()->getAttributeRawValue($_product->getId(), 'admire_artwork_right', $currentStore);
+
+        echo 'Top: '.$artwork_top.'<br>';
+        echo 'Left: '.$artwork_left.'<br>';
+        echo 'Right: '.$artwork_right.'<br>';
+        ?>
+
+    <?php endforeach; ?>
+<?php endif; ?>

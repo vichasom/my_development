@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Magento_Checkout::css/checkout.css" />
+    </head>
+    <body>
+        <referenceContainer name="header.container">
+            <!-- load javascript to header -->
+            <block class="Muaw\HomeSlider\Block\HomeSlider" name="header.js.component" template="Muaw_HomeSlider::headercomponant.phtml" />
+        </referenceContainer>
+    </body>
+</page>

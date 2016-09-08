@@ -1,0 +1,47 @@
+/**
+ * Created by Chamal on 3/7/16.
+ */
+require([
+        'jquery'
+    ],
+    function (jQuery) {
+        jQuery(window).load(function () {
+            var top = jQuery('#admire_artwork_top').val();
+            var left = jQuery('#admire_artwork_left').val();
+            var right = jQuery('#admire_artwork_right').val();
+            var multiply = jQuery('#admire_multiply').val();
+
+
+            if (top) {
+                jQuery('.product-sticker-image').css('top', top + '%');
+            }
+            if (left) {
+                jQuery('.product-sticker-image').css('left', left + '%');
+            }
+            if (right) {
+                jQuery('.product-sticker-image').css('right', right + '%');
+            }
+
+            jQuery("#admire_artwork_top").keyup(function () {
+                if (jQuery(this).val()) {
+                    var top = jQuery(this).val();
+                    jQuery('.product-sticker-image').css('top', top + '%');
+                }
+            });
+
+            jQuery("#admire_artwork_left").keyup(function () {
+                if (jQuery(this).val()) {
+                    var left = jQuery(this).val();
+                    jQuery('.product-sticker-image').css('left', left + '%');
+                }
+            });
+
+            jQuery("#admire_artwork_right").keyup(function () {
+                if (jQuery(this).val()) {
+                    var right = jQuery(this).val();
+                    jQuery('.product-sticker-image').css('right', right + '%');
+                }
+            });
+        });
+
+    });

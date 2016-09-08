@@ -1,0 +1,25 @@
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+    <update handle="empty"/>
+
+    <referenceContainer name="page.wrapper">
+        <!-- desktop menu -->
+        <container name="header.container" as="header_container" label="Page Header Container"  htmlTag="header" htmlClass="row header" before="main.content"/>
+
+        <!-- add mobile menu-->
+        <container name="mobile-header-container" htmlTag="div" htmlClass="row mobile-header" after="header.container"/>
+
+        <container name="page.top" as="page_top" label="After Page Header" after="header.container"/>
+
+        <!-- design block -->
+        <container name="home.designer" htmlTag="div" htmlClass="row our-designs-ribbon" before="footer-container" />
+
+        <container name="footer-container" as="footer" before="before.body.end" label="Page Footer Container" htmlTag="footer" htmlClass="row footer" />
+
+        <container name="additional-footer" htmlTag="div" htmlClass="row footer-bottom" after="footer" />
+
+    </referenceContainer>
+
+    <referenceContainer name="header.container">
+        <block class="Muaw\HomeSlider\Block\HomeSlider" name="std.css.comp" template="Muaw_HomeSlider::stdcomponent.phtml" />
+    </referenceContainer>
+</layout>

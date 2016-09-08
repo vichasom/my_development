@@ -1,0 +1,15 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/* @var \Magento\Wishlist\Model\Item $item */
+?>
+<td class="wish-list-table-price">
+    <?php foreach ($block->getChildNames() as $childName): ?>
+        <?php /* @escapeNotVerified */ echo $block->getLayout()->renderElement($childName, false); ?>
+    <?php endforeach;?>
+</td>

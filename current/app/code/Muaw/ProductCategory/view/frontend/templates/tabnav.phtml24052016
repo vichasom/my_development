@@ -1,0 +1,12 @@
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active">
+        <a href="#recently" aria-controls="recently" role="tab" data-toggle="tab">Recently viewed</a>
+    </li>
+    <li role="presentation">
+        <a href="#related" aria-controls="related" role="tab" data-toggle="tab">Related Products</a>
+    </li>
+    <li role="presentation">
+        <a href="#popular" aria-controls="popular" role="tab" data-toggle="tab">Popular designs</a>
+    </li>
+</ul>

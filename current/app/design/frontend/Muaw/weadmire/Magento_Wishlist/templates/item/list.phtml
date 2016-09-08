@@ -1,0 +1,48 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/** @var \Magento\Wishlist\Block\Customer\Wishlist\Items $block */
+$columns = $block->getColumns();
+?>
+<div class="home-page-content-right">
+    <?php $iterator = 1; ?>
+    <?php if (count($block->getItems())): ?>
+        <div class="col-xs-12 wish-list-page-content">
+            <table class="table table-bordered">
+                <tr class="wish-list-table-header">
+                    <td>remove</td>
+                    <td>Item</td>
+                    <td>Description</td>
+                    <td>price</td>
+                    <td>quantity</td>
+                    <td>PURCHASE</td>
+                </tr>
+                <?php foreach ($block->getItems() as $item): ?>
+                    <tr class="wish-list-table-row">
+                        <?php /* @escapeNotVerified */ ?>
+                        <?php foreach ($columns as $column): ?>
+                            <?php $column->setItem($item);
+                            echo $column->toHtml($item); ?>
+                        <?php endforeach; ?>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+    <?php else: ?>
+        <div class="message info empty">
+            <span><?php /* @escapeNotVerified */
+                echo __('This Wish List has no Items'); ?></span>
+        </div>
+    <?php endif; ?>
+</div>
+
+<?php foreach ($columns as $column): ?>
+    <?php echo $column->getAdditionalHtml(); ?>
+<?php endforeach; ?>

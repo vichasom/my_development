@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Contact Us</title>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <container name="contact_container" htmlClass="contact-page" htmlTag="div">
+                <container name="contact_contact_container" htmlClass="col-xs-12 contact-page-container" htmlTag="div">
+                    <!-- main contact section -->
+                    <container name="cont.container.inner" htmlClass="col-xs-12 contact-contacts-container" htmlTag="div">
+                        <!-- contact details -->
+                        <container name="contact_page_details" htmlClass="col-xs-12 col-sm-6 contact-page-details" htmlTag="div">
+                            <block class="Magento\Framework\View\Element\Template" name="cont.details" template="Magento_Contact::details.phtml" />
+                        </container>
+                        <!-- contact form section -->
+                        <container name="contact_form_container" htmlClass="col-xs-12 col-sm-6 contact-page-form" htmlTag="div" after="contact_page_details">
+                            <container name="contact_form_inner" htmlClass="col-xs-12 contact-page-form-container" htmlTag="div">
+                                <block class="Magento\Contact\Block\ContactForm" name="contactForm" template="Magento_Contact::form.phtml">
+                                    <container name="form.additional.info" label="Form Additional Info"/>
+                                </block>
+                            </container>
+                        </container>
+                    </container>
+                    <!-- map section -->
+                    <container name="map_section" htmlClass="col-xs-12 contact-page-map-section" htmlTag="div" after="cont.container.inner">
+                        <block class="Magento\Framework\View\Element\Template" name="cont.map" template="Magento_Contact::map.phtml" />
+                        <block class="Muaw\HomeSlider\Block\HomeSlider" name="cont.map.comp" template="Muaw_HomeSlider::contactmap.phtml" />
+                    </container>
+                </container>
+            </container>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,73 @@
+<?php
+$_productCollection = $block->getLatestProducts();
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+$imageBlock = $block->getLayout()->createBlock('Magento\Catalog\Block\Product\Image');
+?>
+<?php
+$viewMode = 'grid';
+$image = 'category_page_grid';
+$showDescription = false;
+$templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+
+/**
+ * Position for actions regarding image size changing in vde if needed
+ */
+$pos = $block->getPositioned();
+$position = '';
+?>
+<?php if ($_productCollection->count()): ?>
+    <?php foreach ($_productCollection as $_product): ?>
+        <?php $productImage = $block->getImage($_product, $image); ?>
+        <div class="featured-slider-container col-xs-12">
+            <a href="<?php /* @escapeNotVerified */
+            echo $_product->getProductUrl() ?>" tabindex="-1">
+
+                <div class="product-slider-wrapper">
+                    <?php
+                    $om = \Magento\Framework\App\ObjectManager::getInstance();
+                    $storeManager = $om->get('Magento\Store\Model\StoreManagerInterface');
+                    $currentStore = $storeManager->getStore();
+                    $_sticker = $_product->getResource()->getAttributeRawValue($_product->getId(), 'admire_sticker', $currentStore);
+                    $_media_path = $currentStore->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+                    $artwork_top = $_product->getResource()->getAttributeRawValue($_product->getId(), 'admire_artwork_top', $currentStore);
+                    $artwork_left = $_product->getResource()->getAttributeRawValue($_product->getId(), 'admire_artwork_left', $currentStore);
+                    $artwork_right = $_product->getResource()->getAttributeRawValue($_product->getId(), 'admire_artwork_right', $currentStore);
+                    $artwork_multiply = $_product->getResource()->getAttributeRawValue($_product->getId(), 'admire_multiply', $currentStore);
+
+                    if (empty($artwork_left)) {
+                        $artwork_left = '21%';
+                    } else {
+                        $artwork_left = $artwork_left . "%";
+                    }
+
+                    if (empty($artwork_right)) {
+                        $artwork_right = '21%';
+                    } else {
+                        $artwork_right = $artwork_right . "%";
+                    }
+
+                    if (empty($artwork_top)) {
+                        $artwork_top = '17%';
+                    } else {
+                        $artwork_top = $artwork_top . "%";
+                    }
+
+                    if (empty($artwork_multiply)) {
+                        $artwork_multiply = 'brightness(120%)';
+                    } else {
+                        $artwork_multiply = 'brightness(' . $artwork_multiply . '%)';
+                    }
+                    ?>
+                    <div class="product-sticker-image" style="left: <?php echo $artwork_left; ?>;right: <?php echo $artwork_right; ?>; top: <?php echo $artwork_top; ?>; filter: <?php echo $artwork_multiply; ?>; -webkit-filter: <?php echo $artwork_multiply; ?>;">
+                        <?php
+                        if ($_sticker):
+                            ?>
+                            <img src="<?php echo $_media_path . 'catalog/product' . $_sticker; ?>" alt="sticker"/>
+                        <?php endif; ?>
+                    </div>
+                    <?php echo $productImage->toHtml(); ?>
+                </div>
+            </a>
+        </div>
+    <?php endforeach; ?>
+<?php endif; ?>

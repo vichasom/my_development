@@ -1,0 +1,89 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Weee\Block\Item\Price\Renderer */
+
+$item = $block->getItem();
+
+// ensure we use the zone for the shopping cart / minicart
+$originalZone = $block->getZone();
+$block->setZone(\Magento\Framework\Pricing\Render::ZONE_CART);
+?>
+
+<?php if ($block->displayPriceInclTax() || $block->displayBothPrices()): ?>
+<div class="price-including-tax" data-label="<?php echo $block->escapeHtml(__('Incl. Tax')); ?>">
+    <?php if ($block->displayPriceWithWeeeDetails()): ?>
+    <div class="minicart-tax-total">
+        <?php else: ?>
+        <div class="minicart-price">
+            <?php endif; ?>
+            <?php /* @escapeNotVerified */
+            echo $block->formatPrice($block->getUnitDisplayPriceInclTax()); ?>
+        </div>
+
+        <?php if ($block->displayPriceWithWeeeDetails()): ?>
+            <?php if ($this->helper('Magento\Weee\Helper\Data')->getApplied($item)): ?>
+                <div class="minicart-tax-info">
+                    <?php foreach ($this->helper('Magento\Weee\Helper\Data')->getApplied($item) as $tax): ?>
+                        <div class="weee" data-label="<?php /* @escapeNotVerified */
+                        echo $tax['title']; ?>">
+                            <?php /* @escapeNotVerified */
+                            echo $block->formatPrice($tax['amount_incl_tax'], true, true); ?>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+
+                <?php if ($block->displayFinalPrice()): ?>
+                    <div class="minicart-tax-total">
+                        <div class="weee" data-label="<?php echo $block->escapeHtml(__('Total Incl. Tax')); ?>">
+                            <?php /* @escapeNotVerified */
+                            echo $block->formatPrice($block->getFinalUnitDisplayPriceInclTax()); ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            <?php endif; ?>
+        <?php endif; ?>
+    </div>
+    <?php endif; ?>
+
+    <?php if ($block->displayPriceExclTax() || $block->displayBothPrices()): ?>
+    <div class="price-excluding-tax" data-label="<?php echo $block->escapeHtml(__('Excl. Tax')); ?>">
+        <?php if ($block->displayPriceWithWeeeDetails()): ?>
+        <div class="minicart-tax-total">
+            <?php else: ?>
+            <div class="minicart-price">
+                <?php endif; ?>
+                <?php /* @escapeNotVerified */
+                echo $block->formatPrice($block->getUnitDisplayPriceExclTax()); ?>
+            </div>
+
+            <?php if ($block->displayPriceWithWeeeDetails()): ?>
+                <?php if ($this->helper('Magento\Weee\Helper\Data')->getApplied($item)): ?>
+                    <div class="minicart-tax-info">
+                        <?php foreach ($this->helper('Magento\Weee\Helper\Data')->getApplied($item) as $tax): ?>
+                            <div class="weee" data-label="<?php /* @escapeNotVerified */
+                            echo $tax['title']; ?>">
+                                <?php /* @escapeNotVerified */
+                                echo $block->formatPrice($tax['amount'], true, true); ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+
+                    <?php if ($block->displayFinalPrice()): ?>
+                        <div class="minicart-tax-total">
+                            <div class="weee" data-label="<?php echo $block->escapeHtml(__('Total')); ?>">
+                                <?php /* @escapeNotVerified */
+                                echo $block->formatPrice($block->getFinalUnitDisplayPriceExclTax()); ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                <?php endif; ?>
+            <?php endif; ?>
+        </div>
+        <?php endif; ?>
+        <?php $block->setZone($originalZone); ?>

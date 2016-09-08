@@ -1,0 +1,7 @@
+<table>
+	<tr><th>Derived Class</th><th>Parent Interface / Class</th></tr>
+	<?php
+	foreach($block->getPreferencesDetails() as $extendedClass=>$class){ ?>
+			<tr><td><?php echo $class ?></td><td><?php echo $extendedClass ?></td></tr>
+	<?php } ?>
+</table>

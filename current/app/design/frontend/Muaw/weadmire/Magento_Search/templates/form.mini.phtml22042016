@@ -1,0 +1,303 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+?>
+<?php
+/** @var $block \Magento\Framework\View\Element\Template */
+/** @var $helper \Magento\Search\Helper\Data */
+$helper = $this->helper('Magento\Search\Helper\Data');
+?>
+<div class="header-navigation-left pull-left">
+<div class="header-account pull-left">
+    <ul>
+        <li>
+            <?php
+            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+            $customerSession = $objectManager->get('Magento\Customer\Model\Session');
+            if ($customerSession->isLoggedIn()):
+                ?>
+                <a href="<?php echo $this->getUrl('customer/account'); ?>"><img src="<?php echo $this->getViewFileUrl('Magento_Search::/images/header-ico-account.png') ?>" alt="<?php echo __('account icon') ?>"/>My ACCOUNT</a> or
+                <a href="<?php echo $this->getUrl("customer/account/logout"); ?>">LOGOUT</a>
+            <?php else: ?>
+                <a href="<?php echo $this->getUrl('customer/account/login'); ?>"><img src="<?php echo $this->getViewFileUrl('Magento_Search::/images/header-ico-account.png') ?>" alt="<?php echo __('account icon') ?>"/>CREATE AN ACCOUNT</a> or
+                <a href="<?php echo $this->getUrl("customer/account/login"); ?>">LOGIN</a>
+            <?php endif; ?>
+        </li>
+        <li>
+                <span data-bind="scope: 'wishlist'" class="link wishlist">
+                    <a href="<?php echo $this->getUrl('wishlist') ?>">
+                        <img src="<?php echo $this->getViewFileUrl('Magento_Search::/images/header-ico-wishlist.png') ?>" alt="<?php echo __('wishlist icon') ?>"/>
+                        <?php echo __('T-SHIRT WISHLIST') ?>
+                        <!-- ko if: wishlist().counter --><span data-bind="text: wishlist().counter" class="counter qty"></span><!-- /ko -->
+                    </a>
+                </span>
+        </li>
+    </ul>
+</div>
+
+<script type="text/x-magento-init">
+        {
+            "*": {
+                "Magento_Ui/js/core/app": {
+                    "components": {
+                        "wishlist": {
+                            "component": "Magento_Wishlist/js/view/wishlist"
+                        }
+                    }
+                }
+            }
+        }
+</script>
+
+<div class="header-search">
+<form class="form minisearch form-horizontal" id="search_mini_form" action="<?php /* @escapeNotVerified */
+echo $helper->getResultUrl() ?>" method="get">
+<div class="form-group">
+<div class="">
+<input id="search"
+       data-mage-init='{"quickSearch":{
+                                "formSelector":"#search_mini_form",
+                                "url":"<?php /* @escapeNotVerified */
+       echo $block->getUrl('search/ajax/suggest'); ?>",
+                                "destinationSelector":"#search_autocomplete"}
+                           }'
+       type="text"
+       name="<?php /* @escapeNotVerified */
+       echo $helper->getQueryParamName() ?>"
+       value="<?php /* @escapeNotVerified */
+       echo $helper->getEscapedQueryText() ?>"
+       placeholder="<?php /* @escapeNotVerified */
+       echo __('Search'); ?>"
+       class="input-text"
+       maxlength="<?php /* @escapeNotVerified */
+       echo $helper->getMaxQueryLength(); ?>"
+       role="combobox"
+       aria-haspopup="false"
+       aria-autocomplete="both"
+       autocomplete="off"/>
+
+<div id="search_autocomplete" class="search-autocomplete"></div>
+<button type="submit"
+        title="<?php echo $block->escapeHtml(__('Search')) ?>"
+        class="action search">
+</button>
+<div id="language-select">
+    <span class="header-cart-arrow"></span>
+    <table class="table table-responsive translation-links" id="translation-links">
+        <?php
+        $count = 0;
+        $language_codes = array(
+            'en' => 'English',
+            'aa' => 'Afar',
+            'ab' => 'Abkhazian',
+            'af' => 'Afrikaans',
+            'am' => 'Amharic',
+            'ar' => 'Arabic',
+            'as' => 'Assamese',
+            'ay' => 'Aymara',
+            'az' => 'Azerbaijani',
+            'ba' => 'Bashkir',
+            'be' => 'Byelorussian',
+            'bg' => 'Bulgarian',
+            'bh' => 'Bihari',
+            'bi' => 'Bislama',
+            'bn' => 'Bengali/Bangla',
+            'bo' => 'Tibetan',
+            'br' => 'Breton',
+            'ca' => 'Catalan',
+            'co' => 'Corsican',
+            'cs' => 'Czech',
+            'cy' => 'Welsh',
+            'da' => 'Danish',
+            'de' => 'German',
+            'dz' => 'Bhutani',
+            'el' => 'Greek',
+            'eo' => 'Esperanto',
+            'es' => 'Spanish',
+            'et' => 'Estonian',
+            'eu' => 'Basque',
+            'fa' => 'Persian',
+            'fi' => 'Finnish',
+            'fj' => 'Fiji',
+            'fo' => 'Faeroese',
+            'fr' => 'French',
+            'fy' => 'Frisian',
+            'ga' => 'Irish',
+            'gd' => 'Scots/Gaelic',
+            'gl' => 'Galician',
+            'gn' => 'Guarani',
+            'gu' => 'Gujarati',
+            'ha' => 'Hausa',
+            'hi' => 'Hindi',
+            'hr' => 'Croatian',
+            'hu' => 'Hungarian',
+            'hy' => 'Armenian',
+            'ia' => 'Interlingua',
+            'ie' => 'Interlingue',
+            'ik' => 'Inupiak',
+            'in' => 'Indonesian',
+            'is' => 'Icelandic',
+            'it' => 'Italian',
+            'iw' => 'Hebrew',
+            'ja' => 'Japanese',
+            'ji' => 'Yiddish',
+            'jw' => 'Javanese',
+            'ka' => 'Georgian',
+            'kk' => 'Kazakh',
+            'kl' => 'Greenlandic',
+            'km' => 'Cambodian',
+            'kn' => 'Kannada',
+            'ko' => 'Korean',
+            'ks' => 'Kashmiri',
+            'ku' => 'Kurdish',
+            'ky' => 'Kirghiz',
+            'la' => 'Latin',
+            'ln' => 'Lingala',
+            'lo' => 'Laothian',
+            'lt' => 'Lithuanian',
+            'lv' => 'Latvian/Lettish',
+            'mg' => 'Malagasy',
+            'mi' => 'Maori',
+            'mk' => 'Macedonian',
+            'ml' => 'Malayalam',
+            'mn' => 'Mongolian',
+            'mo' => 'Moldavian',
+            'mr' => 'Marathi',
+            'ms' => 'Malay',
+            'mt' => 'Maltese',
+            'my' => 'Burmese',
+            'na' => 'Nauru',
+            'ne' => 'Nepali',
+            'nl' => 'Dutch',
+            'no' => 'Norwegian',
+            'oc' => 'Occitan',
+            'om' => '(Afan)/Oromoor/Oriya',
+            'pa' => 'Punjabi',
+            'pl' => 'Polish',
+            'ps' => 'Pashto/Pushto',
+            'pt' => 'Portuguese',
+            'qu' => 'Quechua',
+            'rm' => 'Rhaeto-Romance',
+            'rn' => 'Kirundi',
+            'ro' => 'Romanian',
+            'ru' => 'Russian',
+            'rw' => 'Kinyarwanda',
+            'sa' => 'Sanskrit',
+            'sd' => 'Sindhi',
+            'sg' => 'Sangro',
+            'sh' => 'Serbo-Croatian',
+            'si' => 'Singhalese',
+            'sk' => 'Slovak',
+            'sl' => 'Slovenian',
+            'sm' => 'Samoan',
+            'sn' => 'Shona',
+            'so' => 'Somali',
+            'sq' => 'Albanian',
+            'sr' => 'Serbian',
+            'ss' => 'Siswati',
+            'st' => 'Sesotho',
+            'su' => 'Sundanese',
+            'sv' => 'Swedish',
+            'sw' => 'Swahili',
+            'ta' => 'Tamil',
+            'te' => 'Tegulu',
+            'tg' => 'Tajik',
+            'th' => 'Thai',
+            'ti' => 'Tigrinya',
+            'tk' => 'Turkmen',
+            'tl' => 'Tagalog',
+            'tn' => 'Setswana',
+            'to' => 'Tonga',
+            'tr' => 'Turkish',
+            'ts' => 'Tsonga',
+            'tt' => 'Tatar',
+            'tw' => 'Twi',
+            'uk' => 'Ukrainian',
+            'ur' => 'Urdu',
+            'uz' => 'Uzbek',
+            'vi' => 'Vietnamese',
+            'vo' => 'Volapuk',
+            'wo' => 'Wolof',
+            'xh' => 'Xhosa',
+            'yo' => 'Yoruba',
+            'zh' => 'Chinese',
+            'zu' => 'Zulu',
+        );
+        foreach ($language_codes as $lang_code => $lang_name) {
+            if ($count % 6 == 0) {
+                echo "<tr>";
+                ?>
+                <td><a data-lang="<?php echo $lang_name; ?>" href="#"><?php echo $lang_name; ?></a></td>
+            <?php
+            } else if ($count % 6 == 5) {
+                ?>
+                <td><a data-lang="<?php echo $lang_name; ?>" href="#"><?php echo $lang_name; ?></a></td>
+                <?php
+                echo "</tr>";
+            } else {
+                ?>
+                <td><a data-lang="<?php echo $lang_name; ?>" href="#"><?php echo $lang_name; ?></a></td>
+            <?php
+            }
+            $count++;
+        }
+        ?>
+    </table>
+</div>
+
+<div style="width: 65px;" id="google_translate_element"></div>
+
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            autoDisplay: false
+        }, 'google_translate_element'); //remove the layout
+    }
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
+
+<script>
+    require(["jquery"], function ($) {
+        function triggerHtmlEvent(element, eventName) {
+            var event;
+            if (document.createEvent) {
+                event = document.createEvent('HTMLEvents');
+                event.initEvent(eventName, true, true);
+                element.dispatchEvent(event);
+            } else {
+                event = document.createEventObject();
+                event.eventType = eventName;
+                element.fireEvent('on' + event.eventType, event);
+            }
+        }
+
+        <!-- Flag click handler -->
+        $('.translation-links a').click(function (e) {
+            e.preventDefault();
+            var lang = $(this).data('lang');
+            $('#google_translate_element select option').each(function () {
+                if ($(this).text().indexOf(lang) > -1) {
+                    $(this).parent().val($(this).val());
+                    var container = document.getElementById('google_translate_element');
+                    var select = container.getElementsByTagName('select')[0];
+                    triggerHtmlEvent(select, 'change');
+                }
+            });
+        });
+
+        $('#language-select').hover(function () {
+            $('#translation-links').stop(true, false).fadeToggle(200);
+            $('.header-cart-arrow').stop(true, false).fadeToggle(200);
+        });
+    });
+</script>
+</div>
+</div>
+</form>
+</div>
+</div>

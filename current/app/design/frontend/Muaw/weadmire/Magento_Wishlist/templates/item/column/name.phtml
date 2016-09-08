@@ -1,0 +1,31 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/* @var \Magento\Wishlist\Model\Item $item */
+$item = $block->getItem();
+$product = $item->getProduct();
+?>
+<td class="wish-list-table-description">
+    <div class="wish-list-description-header">
+        <a href="<?php /* @escapeNotVerified */ echo $block->getProductUrl($item) ?>" title="<?php echo $block->escapeHtml($product->getName()) ?>" class="product-item-link">
+            <?php echo $block->escapeHtml($product->getName()) ?>
+        </a>
+    </div>
+    <div class="wish-list-description-anchor">
+        <?php
+        /* @var \Magento\Wishlist\Model\Item $item */
+        $item = $block->getItem();
+        $product = $item->getProduct();
+        ?>
+        <?php if ($product->isVisibleInSiteVisibility()): ?>
+            <a class="action edit" href="<?php /* @escapeNotVerified */ echo $block->getItemConfigureUrl($item) ?>">
+                <?php /* @escapeNotVerified */ echo __('edit options') ?>
+            </a>
+        <?php endif ?>
+    </div>
+</td>

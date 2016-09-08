@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="checkout.cart.items">
+            <!-- cart page container -->
+            <container name="checkout.cart.container" htmlTag="div" htmlClass="cart-container col-xs-12 cart-page-content" before="-">
+
+                <!-- cart table -->
+                <container name="checkout_cart_table" htmlClass="col-xs-12 cart-page-cart-table" htmlTag="div" />
+
+                <!-- cart bottom -->
+                <container name="checkout_cart_bottom" htmlClass="col-xs-12 cart-bottom" htmlTag="div">
+                    <container name="cart_continue_shopping" htmlClass="col-xs-12 col-sm-6 continue-shopping" htmlTag="div">
+                        <!-- continue shopping -->
+                    </container>
+                    <container name="cart_shipping_total" htmlClass="col-xs-12 col-sm-6 shipping-method" htmlTag="div">
+                        <!-- shipping and total -->
+                    </container>
+                </container>
+
+                <!-- cart total -->
+                <container name="checkout_cart_total" htmlClass="col-xs-12 cart-total" htmlTag="div">
+                    <container name="coupon_container" htmlClass="col-xs-12 col-sm-8" htmlTag="div">
+                        <!-- coupon section moved here -->
+                    </container>
+                    <container name="cart_totals" htmlTag="div" htmlClass="col-xs-12 col-sm-4">
+                        <container name="cart_button" htmlTag="div" htmlClass="col-xs-12 cart-checkout-button">
+                            <!-- checkout button moved here -->
+                        </container>
+                        <container name="cart_payment_methods" htmlClass="col-xs-12 cart-payment-methods" htmlTag="div" after="cart_button">
+                            <block class="Magento\Framework\View\Element\Template" name="payment.methods.images" template="Magento_Checkout::paymentmethods.phtml" />
+                        </container>
+                    </container>
+                </container>
+            </container>
+
+            <!-- cart page featured product tabs -->
+            <container name="cart.featured.products" htmlTag="div" htmlClass="col-xs-12 product-page-featured-products" after="checkout.cart.container">
+                <block class="Muaw\ProductCategory\Block\ProductCategory" name="prod_nav_tab" template="cartnav.phtml" before="cart_recently_viewed_products"/>
+                <container name="prod_tab_pane" htmlClass="tab-content" htmlTag="div">
+                    <!-- recently viewed products -->
+                    <block class="Magento\Cms\Block\Block" name="cart_recently_viewed_products">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">recently-viewed</argument>
+                        </arguments>
+                    </block>
+                    <!-- cart related products -->
+                    <block class="Muaw\Related\Block\Related" name="cart_related_prods" template="related.phtml" />
+
+                </container>
+            </container>
+
+        </referenceContainer>
+
+        <!-- moving cart form/table -->
+        <move element="checkout.cart.form" destination="checkout_cart_table" before="cart.summary"/>
+        <!-- moving coupon section -->
+        <move element="checkout.cart.coupon" destination="coupon_container"/>
+        <!-- checkout button moved -->
+        <move element="checkout.cart.methods.bottom" destination="cart_button"/>
+        <!-- cart totals moved -->
+        <move element="checkout.cart.totals.container" destination="cart_shipping_total"/>
+        <!-- moving shipping estimate -->
+        <move element="checkout.cart.shipping" destination="cart_continue_shopping"/>
+
+
+        <move element="checkout.cart.form.before" destination="checkout.cart.container" before="cart.summary"/>
+        <move element="checkout.cart.widget" destination="checkout.cart.container" after="checkout.cart.form"/>
+    </body>
+</page>

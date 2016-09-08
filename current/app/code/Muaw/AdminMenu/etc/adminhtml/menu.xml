@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Backend/etc/menu.xsd">
+    <menu>
+        <add id="Muaw_AdminMenu::brand" title="MUAW" module="Muaw_AdminMenu" sortOrder="30" resource="Muaw_AdminMenu::brand"/>
+
+        <add id="Muaw_AdminMenu::brand_head_manage" title="Brand" module="Muaw_AdminMenu" sortOrder="10" parent="Muaw_AdminMenu::brand" resource="Muaw_AdminMenu::brand_head_manage"/>
+
+        <add id="Muaw_AdminMenu::brand_new" title="Add New Brand" module="Muaw_AdminMenu" sortOrder="10" parent="Muaw_AdminMenu::brand_head_manage" action="veshelloworld/brand/new" resource="Muaw_AdminMenu::brand_new"/>
+
+        <add id="Muaw_AdminMenu::brand_head_settings" title="Settings" module="Muaw_AdminMenu" sortOrder="20" parent="Muaw_AdminMenu::brand_head_manage" resource="Muaw_AdminMenu::brand_manage"/>
+
+        <add id="Muaw_AdminMenu::configuration" title="Configuration" module="Muaw_AdminMenu" sortOrder="6"
+             parent="Muaw_AdminMenu::brand_head_settings" action="adminhtml/system_config/edit/section/vesbrand" resource="Muaw_AdminMenu::configuration"/>
+    </menu>
+</config>

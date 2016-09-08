@@ -1,0 +1,11 @@
+<?php
+/**
+ * @var $block \Muaw\ProductCategory\Block\ProductCategory
+ */
+?>
+<?php if($description = $block->getCurrentProductCatDescription()):?>
+<div class="col-xs-12">
+    <span class="black-big">We </span><span class="pink-big"> Admire </span><span class="black-big"> : </span>
+    <span class="black-small"><?php echo $description;?></span>
+</div>
+<?php endif;?>

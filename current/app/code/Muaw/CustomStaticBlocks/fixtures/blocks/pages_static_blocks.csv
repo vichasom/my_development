@@ -1,0 +1,50 @@
+title,identifier,content
+"Home Slider",home-slider,"<div class=""col-xs-12"">
+                           <div class=""col-xs-12 slider-wrapper"">
+                           <div class=""col-xs-12 slide-single""><img style=""width: 100%;"" src=""{{media url=""wysiwyg/home/slider-image.jpg""}}"" alt="""" />
+                           <div class=""slider-content""><span>THE LARGEST NUMBER OF T-SHIRT DESIGNS IN THE WORLD</span> <a href=""#"">SHOP NOW<img src=""{{media url=""wysiwyg/home/slider-link-arrow.png""}}"" alt="""" /></a></div>
+                           </div>
+                           <div class=""col-xs-12 slide-single""><img style=""width: 100%;"" src=""{{media url=""wysiwyg/home/slider-image.jpg""}}"" alt="""" />
+                           <div class=""slider-content""><span>tHE LARGEST NUMBER OF T-SHIRT DESIGNS IN THE WORLD</span> <a href=""#"">SHOP NOW<img src=""{{media url=""wysiwyg/home/slider-link-arrow.png""}}"" alt="""" /></a></div>
+                           </div>
+                           <div class=""col-xs-12 slide-single""><img style=""width: 100%;"" src=""{{media url=""wysiwyg/home/slider-image.jpg""}}"" alt="""" />
+                           <div class=""slider-content""><span>tHE LARGEST NUMBER OF T-SHIRT DESIGNS IN THE WORLD</span> <a href=""#"">SHOP NOW<img src=""{{media url=""wysiwyg/home/slider-link-arrow.png""}}"" alt="""" /></a></div>
+                           </div>
+                           </div>
+                           </div>
+"
+"Home Delivery Box",home-delivery,"<div class=""col-xs-12 home-page-delivery-box"">
+                                   <div class=""col-xs-12""><img class=""pull-left"" src=""{{media url=""wysiwyg/home/ico-free.png""}}"" alt="""" />
+                                   <div>Free UK delivery, International &pound;5 per order</div>
+                                   </div>
+                                   <div class=""col-xs-12""><img class=""pull-left"" src=""{{media url=""wysiwyg/home/ico-next-day.png""}}"" alt="""" />
+                                   <div>Most UK orders delivered next day</div>
+                                   </div>
+                                   <div class=""col-xs-12""><img class=""pull-left"" src=""{{media url=""wysiwyg/home/ico-visit.png""}}"" alt="""" />
+                                   <div>Visit our studio and have shirts made</div>
+                                   </div>
+                                   </div>
+"
+"Home Right Content",home-right,"<h2 class=""line-through-text"">t-shirt categories</h2>
+"
+"Home Stock Banner",stock-banner,"<p><img src=""{{media url=""wysiwyg/home/featured-image-1.jpg""}}"" alt="""" /></p>
+"
+"Home Designer",home-designer,"<h2 class=""line-through-text"">OUR DESIGNS</h2>
+                               <div class=""col-xs-12"">We produce our t shirts as they are sold. We hold a stock of about 25,000 blank t shirts in about 100 varieties of size, colour and type for each t shirt design. When you order a t shirt it is made specifically for you &ndash; your exact choice of design, size, type and colour. Our t shirt designs are routinely reproduced onto the fabric of the shirts at a resolution of 760dpi. Colour and detail are our allies. The process dyes the fabric of the shirt, the decorated area has no hand feel and does not affect the performance of the fabric. The t shirts are produced one at a time with the designs scaled to the size of the shirt you choose</div>
+"
+"Sidebar Delivery Box",sidebar-delivery,"<div class=""col-xs-12""><img class=""pull-left"" src=""{{media url=""wysiwyg/home/ico-free.png""}}"" alt="""" />
+                                         <div>FREE UK DELIVERY, INTERNATIONAL &pound;5 PER ORDER</div>
+                                         </div>
+                                         <div class=""col-xs-12""><img class=""pull-left"" src=""{{media url=""wysiwyg/home/ico-next-day.png""}}"" alt="""" />
+                                         <div>Most UK orders delivered next day</div>
+                                         </div>
+                                         <div class=""col-xs-12""><img class=""pull-left"" src=""{{media url=""wysiwyg/home/ico-visit.png""}}"" alt="""" />
+                                         <div>Visit our studio and have shirts made</div>
+                                         </div>
+"
+"Our Shirts",our-shirts,"<h2>Our Shirts</h2>
+                         <div class=""col-xs-12"">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et. <br /> <br /> Magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis <br /> <br /> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et. Nulla consequat massa quis enim.</div>
+                         <p><img src=""{{media url=""wysiwyg/home/cool-max-image.png""}}"" alt="""" />
+</p>"
+"Recently Viewed",recently-viewed,"<p>{{widget type=""Magento\Reports\Block\Product\Widget\Viewed"" page_size=""4"" template=""widget/viewed/content/viewed_list.phtml""}}</p>
+"

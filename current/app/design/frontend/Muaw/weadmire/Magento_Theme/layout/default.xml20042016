@@ -1,0 +1,167 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="header.container">
+            <container name="main.header.wrapper" htmlClass="col-xs-12" htmlTag="div" before="-">
+                <!-- Bring header top links inside container -->
+                <container name="header.panel.wrapper" htmlClass="panel wrapper" htmlTag="div" before="-"/>
+
+                <container name="header-wrapper" label="Page Header" as="header-wrapper" htmlTag="div" htmlClass="navbar navbar-default">
+                    <container name="container-fluid" htmlTag="div" htmlClass="container-fluid" before="-">
+                        <container name="logo.wrapper" htmlTag="div" htmlClass="navbar-header">
+                            <block class="Magento\Theme\Block\Html\Header\Logo" name="logo" />
+                        </container>
+
+                        <block class="Magento\Framework\View\Element\Html\Links" name="top.links">
+                            <arguments>
+                                <argument name="css_class" xsi:type="string">header links</argument>
+                            </arguments>
+                        </block>
+                        <container name="navbar-collapse" htmlTag="div" htmlClass="collapse navbar-collapse" htmlId="bs-example-navbar-collapse-1">
+                            <container name="headernavi" htmlTag="div" htmlClass="header-navigation-container pull-right" />
+                        </container>
+                    </container>
+                </container>
+            </container>
+        </referenceContainer>
+
+        <!-- Override footer section -->
+        <referenceContainer name="footer-container">
+            <!-- load javascript to footer -->
+            <block class="Muaw\HomeSlider\Block\HomeSlider" name="header.js.component" template="Muaw_HomeSlider::headercomponant.phtml" />
+            <container name="footer" as="footer" label="Page Footer" htmlTag="div" htmlClass="col-xs-12" before="-">
+                <block class="Ashsmith\HelloWorld\Block\HelloWorld" name="category.tree.footer" template="footercats.phtml" before="footer.content" />
+                <block class="Magento\Framework\View\Element\Template" name="footer.content" template="Magento_Theme::html/footercontent.phtml" />
+            </container>
+        </referenceContainer>
+
+        <!-- footer additional section -->
+        <referenceContainer name="additional-footer">
+            <block class="Magento\Framework\View\Element\Template" name="footer.additional.content" template="Magento_Theme::html/footerbottom.phtml" />
+
+        </referenceContainer>
+
+        <!-- mobile header -->
+        <referenceContainer name="mobile-header-container">
+            <block class="Ashsmith\HelloWorld\Block\HelloWorld" name="mobile_header" template="mobileheader.phtml" />
+        </referenceContainer>
+
+        <!-- Home Slider -->
+        <referenceContainer name="main.slider">
+            <block class="Magestore\Bannerslider\Block\SliderItem">
+                <action method="setSliderId">
+                    <argument name="sliderId" xsi:type="string">1</argument>
+                </action>
+            </block>
+            <!--<block class="Magento\Cms\Block\Block" name="home.slider">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">home-slider</argument>
+                </arguments>
+            </block>-->
+            <block class="Muaw\HomeSlider\Block\HomeSlider" name="slider.component" template="Muaw_HomeSlider::slidercomponant.phtml" after="home.slider"/>
+        </referenceContainer>
+
+        <!-- home mobile delivery box -->
+        <referenceContainer name="mobile.delivery.box">
+            <block class="Magento\Cms\Block\Block" name="home.delivery.box">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">home-delivery</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+
+        <!-- home main content area -->
+        <referenceContainer name="main.content.area">
+            <container name="home-container" htmlTag="div" htmlClass="col-xs-12">
+                <!-- right content area -->
+                <container name="home.right.block" htmlTag="div" htmlClass="col-xs-12 col-sm-9 col-sm-push-3 home-page-content-right">
+                    <block class="Magento\Cms\Block\Block" name="home.right.content">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">home-right</argument>
+                        </arguments>
+                    </block>
+                    <!-- home categories -->
+                    <container name="main.category.container" htmlClass="col-xs-12 home-page-right-container" htmlTag="div">
+                        <block cacheable="false" class="Ashsmith\HelloWorld\Block\HelloWorld" name="home.cats.block" template="homecats.phtml" before="home.cats" />
+                    </container>
+                    <!-- bottom sliders -->
+                    <container name="home.featured" htmlTag="div" htmlClass="col-xs-12 home-page-featured-container">
+                        <!-- latest product slider -->
+                        <container name="latest.product.container" htmlClass="col-xs-12 col-sm-4 featured-slider" htmlTag="div">
+                            <block cacheable="false" class="Muaw\LatestProducts\Block\LatestProducts" name="latest.prod.slider" template="latestcats.phtml" />
+                        </container>
+                        <!-- stock banner -->
+                        <container name="stock.banner" htmlTag="div" htmlClass="col-xs-12 col-sm-4 featured-image" >
+                            <block class="Magento\Cms\Block\Block" name="stock.banner.block">
+                                <arguments>
+                                    <argument name="block_id" xsi:type="string">stock-banner</argument>
+                                </arguments>
+                            </block>
+                        </container>
+                        <!-- best seller product slider -->
+                        <container name="bestseller.product.container" htmlClass="col-xs-12 col-sm-4 featured-slider best-selling-product-container" htmlTag="div">
+                            <block cacheable="false" class="Muaw\LatestProducts\Block\LatestProducts" name="bestselling.prod.slider" template="bestseller.phtml" />
+                            <!--<block class="Muaw\BestSeller\Block\BestSeller" name="bestselling.prod.slider" template="bestseller.phtml" />-->
+                        </container>
+                    </container>
+                </container>
+                <!-- left sidebar -->
+                <container name="home.left.block" htmlTag="div" htmlClass="col-xs-12 col-sm-3 col-sm-pull-9 home-page-content-left" after="home.right.block">
+                    <!-- sidebar delivery box -->
+                    <container name="sidebar.delivery.box" htmlTag="div" htmlClass="col-xs-12 home-page-delivery-box">
+                        <block class="Magento\Cms\Block\Block" name="sidebar.delivery">
+                            <arguments>
+                                <argument name="block_id" xsi:type="string">sidebar-delivery</argument>
+                            </arguments>
+                        </block>
+                    </container>
+                    <!-- sidebar categories -->
+                    <container name="sidebar.categories" htmlTag="div" htmlClass="col-xs-12 home-page-t-shirt-categories" after="sidebar.delivery.box">
+                        <block class="Magento\Framework\View\Element\Template" name="sidebar.cats.title" template="Magento_Theme::html/sidebarcats.phtml" />
+                        <block class="Ashsmith\HelloWorld\Block\HelloWorld" name="category.tree" template="helloworld.phtml" after="sidebar.cats.title" />
+                    </container>
+                    <!-- sidebar our shirts block -->
+                    <container name="sidebar.our.shirts" htmlTag="div" htmlClass="col-xs-12 home-page-our-shirts">
+                        <block class="Magento\Cms\Block\Block" name="our.shirts">
+                            <arguments>
+                                <argument name="block_id" xsi:type="string">our-shirts</argument>
+                            </arguments>
+                        </block>
+                    </container>
+                </container>
+            </container>
+        </referenceContainer>
+
+        <!-- home design block -->
+        <referenceContainer name="home.designer">
+            <container name="designer.container" htmlTag="div" htmlClass="col-xs-12">
+                <block class="Magento\Cms\Block\Block" name="home.designer.block">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">home-designer</argument>
+                    </arguments>
+                </block>
+            </container>
+        </referenceContainer>
+
+
+        <move element="header-wrapper" destination="main.header.wrapper"/> <!-- move header-wrapper -->
+        <move element="top.search" destination="headernavi" /> <!-- move search box -->
+        <move element="minicart" destination="headernavi" /> <!-- move mini cart -->
+
+        <referenceBlock name="skip_to_content" remove="true"/>
+        <referenceBlock name="header.panel" remove="true"/>
+        <!--Remove top links -->
+        <referenceBlock name="top.links" remove="true"/>
+        <!-- Remove navigation menu -->
+        <referenceBlock name="page.top" remove="true"/>
+
+        <referenceBlock name="div.sidebar.additional" remove="true"/>
+
+    </body>
+</page>

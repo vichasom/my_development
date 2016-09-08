@@ -1,0 +1,24 @@
+<?php
+$_productCollection = $block->getBestSellerData();
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+$imageBlock = $block->getLayout()->createBlock('Magento\Catalog\Block\Product\Image');
+?>
+<?php
+$image = 'category_page_grid';
+
+/**
+ * Position for actions regarding image size changing in vde if needed
+ */
+$pos = $block->getPositioned();
+$position = '';
+?>
+<?php if ($_productCollection->count()): ?>
+    <?php foreach ($_productCollection as $_product): ?>
+        <?php $productImage = $block->getImage($_product, $image);?>
+        <div class="featured-slider-container col-xs-12">
+            <a href="<?php /* @escapeNotVerified */ echo $_product->getProductUrl() ?>" tabindex="-1">
+                <?php echo $productImage->toHtml(); ?>
+            </a>
+        </div>
+    <?php endforeach;?>
+<?php endif;?>

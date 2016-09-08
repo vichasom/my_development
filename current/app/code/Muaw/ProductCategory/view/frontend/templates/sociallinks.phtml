@@ -1,0 +1,18 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Chamal
+ * Date: 1/8/16
+ * Time: 10:00 AM
+ */
+
+/**
+ * @var $block \Muaw\ProductCategory\Block\ProductCategory
+ */
+$_currentUrl = $block->getCurrentUrl();
+$_productName = $block->getCurrentProductName();
+?>
+<a href="https://twitter.com/intent/tweet?url=<?php echo $_currentUrl;?>&text=<?php echo $_productName?>&via=weadmire" target="_blank"><img src="<?php echo $this->getViewFileUrl('Magento_Theme::images/product-page-twitter.png') ?>" alt="share on twitter"/></a>
+<a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $_currentUrl;?>" target="_blank"><img src="<?php echo $this->getViewFileUrl('Magento_Theme::images/product-page-facebook.png') ?>" alt="share on facebook"/></a>
+<a href="http://www.stumbleupon.com/submit?url=<?php echo $_currentUrl;?>&title=<?php echo $_productName?>" target="_blank"><img src="<?php echo $this->getViewFileUrl('Magento_Theme::images/product-page-stumbled-upon.png') ?>" alt="stubled"/></a>
+<a href="https://plus.google.com/share?url=<?php echo $_currentUrl;?>" target="_blank"><img src="<?php echo $this->getViewFileUrl('Magento_Theme::images/product-page-gplus.png') ?>" alt="share on gplus"/></a>

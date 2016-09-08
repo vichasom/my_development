@@ -1,0 +1,27 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<form id="discount-coupon-form"
+      action="<?php /* @escapeNotVerified */ echo $block->getUrl('checkout/cart/couponPost') ?>"
+      method="post"
+      data-mage-init='{"discountCode":{"couponCodeSelector": "#coupon_code",
+                                               "removeCouponSelector": "#remove-coupon",
+                                               "applyButton": "button.action.apply",
+                                               "cancelButton": "button.action.cancel"}}'>
+    <span><?php /* @escapeNotVerified */ echo __('enter promo code here') ?></span>
+    <input type="hidden" name="remove" id="remove-coupon" value="0" />
+        <input type="text" class="input-text" id="coupon_code" name="coupon_code" value="<?php echo $block->escapeHtml($block->getCouponCode()) ?>" placeholder="<?php echo $block->escapeHtml(__('Enter discount code'));?>" />
+        <?php if (!strlen($block->getCouponCode())): ?>
+            <button class="action apply primary" type="button" value="<?php /* @escapeNotVerified */ echo __('Apply Discount') ?>">
+                <?php /* @escapeNotVerified */ echo __('Apply') ?>
+            </button>
+        <?php else: ?>
+            <button  type="button" class="action cancel primary" value="<?php /* @escapeNotVerified */ echo __('Cancel Coupon') ?>"><?php /* @escapeNotVerified */ echo __('Cancel') ?></button>
+        <?php endif; ?>
+</form>

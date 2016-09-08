@@ -1,0 +1,124 @@
+<?php
+/**
+ * @var $block \Muaw\TshirtView\Block\TshirtView
+ */
+?>
+<?php $artwork = $block->getProductArtworkPath();
+$artworkImage = $block->getArtwork();
+$_type = $block->getProductType();
+?>
+
+<div class="tshirtview-wrapper">
+    <p>Sample Preview</p>
+    <div class="tshirt-image-wrapper">
+        <div class="tshirt-image preview-image">
+            <div class="product-sticker-image">
+                <img src="<?php echo $artwork; ?>" alt="artwork">
+            </div>
+            <img src="<?php echo $block->getViewFileUrl('Muaw_TshirtView::images/Mens-shirt-white.png') ?>">
+        </div>
+    </div>
+    <fieldset class="fieldset admin__fieldset user-defined">
+        <ledgend class="admin__legend legend">
+            <span>Tshirt Views</span>
+        </ledgend>
+    </fieldset>
+    <?php if ($_type === 'configurable'): ?>
+        <div class="messages">
+            <div class="message message-notice">
+                If artwork is not display on the t-shirt images, First set the product to "OFFLINE" and then click on
+                the
+                artwork image under "Images and Videos" section and tick "Sticker" and "Hide from Product Page" then
+                save the product
+            </div>
+        </div>
+    <?php else: ?>
+        <div class="messages">
+            <div class="message message-notice">
+                Tshirt Views can display only for Configurable Products
+            </div>
+        </div>
+    <?php endif; ?>
+    <?php if (!empty($artworkImage)): ?>
+        <div class="tshirt-gender">
+            <h3>Men</h3>
+        </div>
+        <div class="tshirt-image-wrapper">
+            <div class="tshirt-image">
+                <div class="product-sticker-image">
+                    <img src="<?php echo $artwork; ?>" alt="artwork">
+                </div>
+                <img src="<?php echo $block->getViewFileUrl('Muaw_TshirtView::images/Mens-shirt-white.png') ?>">
+            </div>
+
+            <div class="tshirt-image">
+                <div class="product-sticker-image">
+                    <img src="<?php echo $artwork; ?>" alt="artwork">
+                </div>
+                <img src="<?php echo $block->getViewFileUrl('Muaw_TshirtView::images/Mens-shirt-peach.png') ?>">
+            </div>
+
+            <div class="tshirt-image">
+                <div class="product-sticker-image">
+                    <img src="<?php echo $artwork; ?>" alt="artwork">
+                </div>
+                <img src="<?php echo $block->getViewFileUrl('Muaw_TshirtView::images/Mens-shirt-green.png') ?>">
+            </div>
+
+            <div class="tshirt-image">
+                <div class="product-sticker-image">
+                    <img src="<?php echo $artwork; ?>" alt="artwork">
+                </div>
+                <img src="<?php echo $block->getViewFileUrl('Muaw_TshirtView::images/Mens-shirt-dapple-grey.png') ?>">
+            </div>
+
+            <div class="tshirt-image">
+                <div class="product-sticker-image">
+                    <img src="<?php echo $artwork; ?>" alt="artwork">
+                </div>
+                <img src="<?php echo $block->getViewFileUrl('Muaw_TshirtView::images/Mens-shirt-blue.png') ?>">
+            </div>
+        </div>
+
+        <div class="tshirt-gender">
+            <h3>Women</h3>
+        </div>
+
+        <div class="tshirt-image-wrapper">
+            <div class="tshirt-image">
+                <div class="product-sticker-image">
+                    <img src="<?php echo $artwork; ?>" alt="artwork">
+                </div>
+                <img src="<?php echo $block->getViewFileUrl('Muaw_TshirtView::images/Ladies-shirt-white.png') ?>">
+            </div>
+
+            <div class="tshirt-image">
+                <div class="product-sticker-image">
+                    <img src="<?php echo $artwork; ?>" alt="artwork">
+                </div>
+                <img src="<?php echo $block->getViewFileUrl('Muaw_TshirtView::images/Ladies-shirt-peach.png') ?>">
+            </div>
+
+            <div class="tshirt-image">
+                <div class="product-sticker-image">
+                    <img src="<?php echo $artwork; ?>" alt="artwork">
+                </div>
+                <img src="<?php echo $block->getViewFileUrl('Muaw_TshirtView::images/Ladies-shirt-green.png') ?>">
+            </div>
+
+            <div class="tshirt-image">
+                <div class="product-sticker-image">
+                    <img src="<?php echo $artwork; ?>" alt="artwork">
+                </div>
+                <img src="<?php echo $block->getViewFileUrl('Muaw_TshirtView::images/Ladies-shirt-dapple-grey.png') ?>">
+            </div>
+
+            <div class="tshirt-image">
+                <div class="product-sticker-image">
+                    <img src="<?php echo $artwork; ?>" alt="artwork">
+                </div>
+                <img src="<?php echo $block->getViewFileUrl('Muaw_TshirtView::images/Ladies-shirt-blue.png') ?>">
+            </div>
+        </div>
+    <?php endif; ?>
+</div>

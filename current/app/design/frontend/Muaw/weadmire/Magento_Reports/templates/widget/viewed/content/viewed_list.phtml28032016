@@ -1,0 +1,94 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * @var $block \Magento\Reports\Block\Product\Viewed
+ */
+?>
+<?php
+if ($exist = ($block->getRecentlyViewedProducts() && $block->getRecentlyViewedProducts()->getSize())) {
+    $type = 'widget-viewed';
+    $mode = 'list';
+
+    $type = $type . '-' . $mode;
+
+    $image = 'recently_viewed_products_list_content_widget';
+    $title = __('Recently Viewed');
+    $items = $block->getRecentlyViewedProducts();
+    $_helper = $this->helper('Magento\Catalog\Helper\Output');
+
+    $showWishlist = true;
+    $showCompare = true;
+    $showCart = true;
+    $rating = 'short';
+    $description = ($mode == 'list') ? true : false;
+}
+?>
+
+<?php if ($exist): ?>
+    <div role="tabpanel" class="tab-pane in fade active" id="recently">
+        <?php foreach ($items as $_item): ?>
+            <div class="col-xs-6 col-sm-3 featured-product-box">
+                <div class="col-xs-12 featured-product-box-container">
+                    <a href="<?php /* @escapeNotVerified */
+                    echo $block->getProductUrl($_item) ?>">
+                        <?php
+                        $om = \Magento\Framework\App\ObjectManager::getInstance();
+                        $storeManager = $om->get('Magento\Store\Model\StoreManagerInterface');
+                        $currentStore = $storeManager->getStore();
+                        $prod_id = $_item->getId();
+                        $_sticker = $_item->getResource()->getAttributeRawValue($prod_id, 'admire_sticker', $currentStore);
+                        $_media_path = $currentStore->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+                        $artwork_top = $_item->getResource()->getAttributeRawValue($_item->getId(), 'admire_artwork_top', $currentStore);
+                        $artwork_left = $_item->getResource()->getAttributeRawValue($_item->getId(), 'admire_artwork_left', $currentStore);
+                        $artwork_right = $_item->getResource()->getAttributeRawValue($_item->getId(), 'admire_artwork_right', $currentStore);
+
+                        if (empty($artwork_left)) {
+                            $artwork_left = '21%';
+                        } else {
+                            $artwork_left = $artwork_left . "%";
+                        }
+
+                        if (empty($artwork_right)) {
+                            $artwork_right = '21%';
+                        } else {
+                            $artwork_right = $artwork_right . "%";
+                        }
+
+                        if (empty($artwork_top)) {
+                            $artwork_top = '17%';
+                        } else {
+                            $artwork_top = $artwork_top . "%";
+                        }
+                        ?>
+                        <div class="cart-sticker" style="left: <?php echo $artwork_left; ?>;right: <?php echo $artwork_right; ?>; top: <?php echo $artwork_top; ?>;">
+                            <?php
+                            if ($_sticker):
+                                ?>
+                                <img src="<?php echo $_media_path . 'catalog/product' . $_sticker; ?>" alt="sticker"/>
+                            <?php endif; ?>
+                        </div>
+
+                        <?php echo $block->getImage($_item, $image)->toHtml(); ?>
+
+                        <div class="product-featured-price">
+                            <?php /* @escapeNotVerified */
+                            echo $block->getProductPrice($_item); ?>
+                        </div>
+                        <div class="product-featured-hover">
+                            IF YOU <span>ADMIRE</span>, CLICK TO READ MORE
+                        </div>
+                        <div class="col-xs-12 product-featured-description"><?php echo $block->escapeHtml($_item->getName()) ?></div>
+                    </a>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>

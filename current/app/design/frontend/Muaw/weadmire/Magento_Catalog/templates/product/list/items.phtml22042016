@@ -1,0 +1,276 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/* @var $block \Magento\Catalog\Block\Product\AbstractProduct */
+?>
+
+<?php
+switch ($type = $block->getType()) {
+
+    case 'related-rule':
+        if ($exist = $block->hasItems()) {
+            $type = 'related';
+            $class = $type;
+
+            $image = 'related_products_list';
+            $title = __('Related Products');
+            $items = $block->getAllItems();
+            $limit = $block->getPositionLimit();
+            $shuffle = (int)$block->isShuffled();
+            $canItemsAddToCart = $block->canItemsAddToCart();
+
+            $showWishlist = true;
+            $showCompare = true;
+            $showCart = false;
+            $templateType = null;
+            $description = false;
+        }
+        break;
+
+    case 'related':
+        /** @var \Magento\Catalog\Block\Product\ProductList\Related $block */
+        if ($exist = $block->getItems()->getSize()) {
+            $type = 'related';
+            $class = $type;
+
+            $image = 'related_products_list';
+            $title = __('Related Products');
+            $items = $block->getItems();
+            $limit = $block->getPositionLimit();
+            $shuffle = 0;
+            $canItemsAddToCart = $block->canItemsAddToCart();
+
+            $showWishlist = true;
+            $showCompare = true;
+            $showCart = false;
+            $templateType = null;
+            $description = false;
+
+            $role = 'related';
+
+            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+            $storeManager = $objectManager->get('Magento\Store\Model\StoreManagerInterface');
+            $currentStore = $storeManager->getStore();
+            $_media_path = $currentStore->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+        }
+        break;
+
+    case 'upsell-rule':
+        if ($exist = $block->hasItems()) {
+            $type = 'upsell';
+            $class = $type;
+
+            $image = 'upsell_products_list';
+            $title = __('We found other products you might like!');
+            $items = $block->getAllItems();
+            $limit = $block->getPositionLimit();
+            $shuffle = (int)$block->isShuffled();
+
+            $showWishlist = false;
+            $showCompare = false;
+            $showCart = false;
+            $templateType = null;
+            $description = false;
+            $canItemsAddToCart = false;
+        }
+        break;
+
+    case 'upsell':
+        /** @var \Magento\Catalog\Block\Product\ProductList\Upsell $block */
+        if ($exist = count($block->getItemCollection()->getItems())) {
+            $type = 'upsell';
+            $class = $type;
+
+            $image = 'upsell_products_list';
+            $title = __('We found other products you might like!');
+            $items = $block->getItemCollection()->getItems();
+            $limit = $block->getItemLimit('upsell');
+            $shuffle = 0;
+
+            $showWishlist = false;
+            $showCompare = false;
+            $showCart = false;
+            $templateType = null;
+            $description = false;
+            $canItemsAddToCart = false;
+        }
+        break;
+
+    case 'crosssell-rule':
+        /** @var \Magento\Catalog\Block\Product\ProductList\Crosssell $block */
+        if ($exist = $block->hasItems()) {
+            $type = 'crosssell';
+            $class = $type;
+
+            $image = 'cart_cross_sell_products';
+            $title = __('More Choices:');
+            $items = $block->getItemCollection();
+
+            $showWishlist = true;
+            $showCompare = true;
+            $showCart = true;
+            $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+            $description = false;
+            $canItemsAddToCart = false;
+        }
+        break;
+
+    case 'crosssell':
+        /** @var \Magento\Catalog\Block\Product\ProductList\Crosssell $block */
+        if ($exist = $block->getItemCount()) {
+            $type = 'crosssell';
+            $class = $type;
+
+            $image = 'cart_cross_sell_products';
+            $title = __('More Choices:');
+            $items = $block->getItems();
+
+            $showWishlist = true;
+            $showCompare = true;
+            $showCart = true;
+            $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+            $description = false;
+            $canItemsAddToCart = false;
+        }
+        break;
+
+    case 'new':
+        if ($exist = $block->getProductCollection()) {
+            $type = 'new';
+            $mode = 'grid';
+            $type = $type . ' ' . $mode;
+
+            $class = 'widget' . ' ' . $type;
+
+            $image = 'new_products_content_widget_grid';
+            $title = __('New Products');
+            $items = $exist;
+
+            $showWishlist = true;
+            $showCompare = true;
+            $showCart = true;
+            $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+            $description = ($mode == 'list') ? true : false;
+            $canItemsAddToCart = false;
+        }
+        break;
+
+    case 'other':
+        break;
+}
+?>
+
+<?php if ($exist): ?>
+    <div role="tabpanel" class="tab-pane fade active"
+        <?php if ($role = 'related'): ?>
+            id="<?php echo $role; ?>"
+        <?php endif; ?>>
+        <?php if ($type == 'related' || $type == 'upsell'):
+        if ($type == 'related'): ?>
+        <div class="block <?php /* @escapeNotVerified */
+        echo $class; ?>" data-mage-init='{"relatedProducts":{"relatedCheckbox":".related.checkbox"}}' data-limit="<?php /* @escapeNotVerified */
+        echo $limit; ?>" data-shuffle="<?php /* @escapeNotVerified */
+        echo $shuffle; ?>">
+            <?php else: ?>
+            <div class="block <?php /* @escapeNotVerified */
+            echo $class; ?>" data-mage-init='{"upsellProducts":{}}' data-limit="<?php /* @escapeNotVerified */
+            echo $limit; ?>" data-shuffle="<?php /* @escapeNotVerified */
+            echo $shuffle; ?>">
+                <?php endif;
+                else: ?>
+                <div class="block <?php /* @escapeNotVerified */
+                echo $class;
+                endif;
+                ?>
+                <div class=" block-content content
+                " aria-labelledby="block-<?php /* @escapeNotVerified */
+                echo $class ?>-heading">
+                <?php if ($type == 'related' && $canItemsAddToCart): ?>
+                    <div class="block-actions">
+                        <?php /* @escapeNotVerified */
+                        echo __('Check items to add to the cart or') ?>
+                        <button type="button" class="action select" role="select-all">
+                                <span><?php /* @escapeNotVerified */
+                                    echo __('select all') ?></span></button>
+                    </div>
+                <?php endif; ?>
+                <div class="products wrapper grid products-grid products-<?php /* @escapeNotVerified */
+                echo $type; ?>">
+
+                    <?php $iterator = 1;
+                    foreach ($items as $_item):
+                        $_product = $objectManager->get('Magento\Catalog\Model\Product')->load($_item->toArray()['entity_id']);
+                        $available = '';
+                        if (!$_item->isComposite() && $_item->isSaleable() && $type == 'related'):
+                            if (!$_item->getRequiredOptions()):
+                                $available = 'related-available';
+                            endif;
+                        endif;
+                        if ($type == 'related' || $type == 'upsell'):
+                            /* @escapeNotVerified */
+                            echo ($iterator++ == 1) ? '<div class="col-xs-6 col-sm-3 featured-product-box">' : '</div><div class="col-xs-6 col-sm-3 featured-product-box">';
+                        else:
+                            /* @escapeNotVerified */
+                            echo ($iterator++ == 1) ? '<div class="col-xs-6 col-sm-3 featured-product-box">' : '</div><div class="col-xs-6 col-sm-3 featured-product-box">';
+                        endif; ?>
+                        <div class="col-xs-12 featured-product-box-container">
+                            <?php /* @escapeNotVerified */
+                            echo '<!-- ' . $image . '-->' ?>
+                            <a href="<?php /* @escapeNotVerified */
+                            echo $block->getProductUrl($_item) ?>" class="product photo product-item-photo">
+                                <?php
+                                $_sticker = $_product->getResource()->getAttributeRawValue($_product->getId(), 'admire_sticker', $currentStore);
+                                $artwork_top = $_product->getResource()->getAttributeRawValue($_product->getId(), 'admire_artwork_top', $currentStore);
+                                $artwork_left = $_product->getResource()->getAttributeRawValue($_product->getId(), 'admire_artwork_left', $currentStore);
+                                $artwork_right = $_product->getResource()->getAttributeRawValue($_product->getId(), 'admire_artwork_right', $currentStore);
+
+                                if (empty($artwork_left)) {
+                                    $artwork_left = '21%';
+                                } else {
+                                    $artwork_left = $artwork_left . "%";
+                                }
+
+                                if (empty($artwork_right)) {
+                                    $artwork_right = '21%';
+                                } else {
+                                    $artwork_right = $artwork_right . "%";
+                                }
+
+                                if (empty($artwork_top)) {
+                                    $artwork_top = '17%';
+                                } else {
+                                    $artwork_top = $artwork_top . "%";
+                                }
+
+                                ?>
+                                <div class="col-xs-12 product-image-container">
+                                    <div class="product-sticker-image" style="left: <?php echo $artwork_left; ?>;right: <?php echo $artwork_right; ?>; top: <?php echo $artwork_top; ?>;">
+                                        <img src="<?php echo $_media_path . 'catalog/product' . $_sticker; ?>" alt="<?php echo $_product->getName(); ?>-artwork">
+                                    </div>
+                                    <?php echo $block->getImage($_item, $image)->toHtml(); ?>
+                                </div>
+                                <div class="product-featured-price">
+                                    <?php /* @escapeNotVerified */
+                                    echo $block->getProductPrice($_item); ?>
+                                </div>
+                                <div class="product-featured-hover">
+                                    IF YOU <span>ADMIRE</span>, CLICK TO READ MORE
+                                </div>
+                                <div class="col-xs-12 product-featured-description"><?php echo $block->escapeHtml($_item->getName()) ?></div>
+                            </a>
+                        </div>
+                        <?php echo ($iterator == count($items) + 1) ? '</li>' : '';
+                    endforeach ?>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+<?php endif; ?>

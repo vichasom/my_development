@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Muaw_TshirtView::css/tshirtview.css" />
+        <link src="Muaw_TshirtView::js/adjust-position.js"/>
+    </head>
+    <body>
+        <referenceContainer name="page.content">
+            <block class="Muaw\TshirtView\Block\TshirtView" name="view-product" after="page.main.actions" template="Muaw_TshirtView::view-product.phtml"/>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Muaw\TshirtView\Block\TshirtView" name="tshirt-view" before="new-video" template="Muaw_TshirtView::tshirt-view.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,35 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Chamal
+ * Date: 1/9/16
+ * Time: 10:35 AM
+ */
+?>
+<script>
+    require(["jquery", "slickmin"], function ($) {
+        $('.slider-wrapper').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: true,
+            dots: false,
+            nextArrow: "<button class=\"home-page-slider-next\"><img src='<?php echo $this->getViewFileUrl('Muaw_HomeSlider::images/slider-next.png')?>' alt=\"\"/></button>",
+            prevArrow: "<button class=\"home-page-slider-prev\"><img src='<?php echo $this->getViewFileUrl('Muaw_HomeSlider::images/slider-previous.png')?>' alt=\"\"/></button>"
+        });
+
+        $('.featured-slider').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: true,
+            dots: false,
+            fade: true,
+            nextArrow: "<button class=\"home-page-featured-next\"><img src='<?php echo $this->getViewFileUrl('Muaw_HomeSlider::images/fearured-slider-next.png')?>' alt=\"\"/></button>",
+            prevArrow: "<button class=\"home-page-featured-prev\"><img src='<?php echo $this->getViewFileUrl('Muaw_HomeSlider::images/fearured-slider-prev.png')?>' alt=\"\"/></button>"
+        });
+    });
+</script>
+<style>
+    #maincontent {
+        display: none;
+    }
+</style>
